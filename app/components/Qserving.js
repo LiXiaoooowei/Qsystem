@@ -1,0 +1,66 @@
+var React = require('react');
+var ReactDOM = require('react-dom');
+var Firebase = require('./FirebaseClient.js');
+
+var headerStyle = {
+	"border": "1px solid black",
+	"border-collapse": "collapse",
+	"width": "400px",
+	"text-align": "center",
+	"padding": 15,
+	"float": "right"
+};
+var entryStyle = {
+	"border": "1px solid black",
+	"border-collapse": "collapse",
+	"padding": 15,
+	"font-size": 40
+};
+
+var thStyle = {
+	"border": "1px solid black",
+	"border-collapse": "collapse",
+	"padding": 15,
+	"background-color": "#ddd",
+	"color": "black",
+	"font-size": 20
+}
+
+var Qserve = React.createClass({
+	getInitialState: function() {
+		return {
+			queue: new Array(),
+			counter: 1
+		};
+	},
+	componentWillMount: function() {
+		var items = this.state.queue;
+		var firebaseRef = Firebase.database().ref().child('Qserving');
+		firebaseRef.on("value", function(snapshot) {
+			items[0] = snapshot.val();
+			this.setState({
+				queue: items,
+				counter: 1
+			});
+		}.bind(this));
+	},
+	componentWillUnmount: function() {
+		Firebase.database().ref("Qserving").off();
+	},
+	render: function() {
+		return(
+			<table style={headerStyle}>
+			<tr>
+			<th style = {thStyle}>Counter</th>
+			<th style = {thStyle}>Now Serving</th>
+			</tr>
+			<tr>
+			<td style = {entryStyle}>{this.state.counter}</td>
+			<td style = {entryStyle}>{this.state.queue[0]}</td>
+			</tr>
+			</table>
+			);
+	}
+});
+
+module.exports = Qserve
