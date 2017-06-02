@@ -15,7 +15,8 @@ var buttonStyle_hover = {
 	"font-size": "40px",
 	"padding": "30px 60px",
 	"border-radius": "20px",
-	"border": "2px solid #555555"
+	"border": "2px solid #555555",
+	"cursor": "pointer"
 };
 
 var addBtn = React.createClass({

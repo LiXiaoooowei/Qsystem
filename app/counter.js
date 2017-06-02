@@ -47,6 +47,7 @@ export default React.createClass({
 			<li><Link to="/">Screen</Link></li>
 			<li><Link to="/counter">Counter</Link></li>
 			<li><Link to="/printer">Printer</Link></li>
+			<li style = {{"float": "right"}}><Link to="/login">Log In</Link></li>
 			</ul>
 			<div style = {{"margin-right":"50px", "margin-left": "10px"}}><Qserve /></div>
 			<div style = {{"margin-right": "50px"}}><Qwait qwait = {this.state.qwait} /></div>

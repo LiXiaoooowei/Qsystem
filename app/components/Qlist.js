@@ -28,6 +28,8 @@ var thStyle = {
 var Qlist = React.createClass({
 
 	render: function() {
+		var length = this.props.queue.length;
+
 		return(
 			<table style={headerStyle}>
 			<tr>
@@ -35,44 +37,44 @@ var Qlist = React.createClass({
 			<th style = {thStyle}>Served by Counter</th>
 			</tr>
 			<tr>
-			<td style = {entryStyle}>{this.props.queue[0]}</td>
-			<td style = {entryStyle}>{this.props.counter[0]}</td>
+			<td style = {entryStyle}>{this.props.queue[length-1]}</td>
+			<td style = {entryStyle}>{this.props.counter[length-1]}</td>
 			</tr>
 			<tr>
-			<td style = {entryStyle}>{this.props.queue[1]}</td>
-			<td style = {entryStyle}>{this.props.counter[1]}</td>
+			<td style = {entryStyle}>{this.props.queue[length-2]}</td>
+			<td style = {entryStyle}>{this.props.counter[length-2]}</td>
 			</tr>
 			<tr>
-			<td style = {entryStyle}>{this.props.queue[2]}</td>
-			<td style = {entryStyle}>{this.props.counter[2]}</td>
+			<td style = {entryStyle}>{this.props.queue[length-3]}</td>
+			<td style = {entryStyle}>{this.props.counter[length-3]}</td>
 			</tr>
 			<tr>
-			<td style = {entryStyle}>{this.props.queue[3]}</td>
-			<td style = {entryStyle}>{this.props.counter[3]}</td>
+			<td style = {entryStyle}>{this.props.queue[length-4]}</td>
+			<td style = {entryStyle}>{this.props.counter[length-4]}</td>
 			</tr>
 			<tr>
-			<td style = {entryStyle}>{this.props.queue[4]}</td>
-			<td style = {entryStyle}>{this.props.counter[4]}</td>
+			<td style = {entryStyle}>{this.props.queue[length-5]}</td>
+			<td style = {entryStyle}>{this.props.counter[length-5]}</td>
 			</tr>
 			<tr>
-			<td style = {entryStyle}>{this.props.queue[5]}</td>
-			<td style = {entryStyle}>{this.props.counter[5]}</td>
+			<td style = {entryStyle}>{this.props.queue[length-6]}</td>
+			<td style = {entryStyle}>{this.props.counter[length-6]}</td>
 			</tr>
 			<tr>
-			<td style = {entryStyle}>{this.props.queue[6]}</td>
-			<td style = {entryStyle}>{this.props.counter[6]}</td>
+			<td style = {entryStyle}>{this.props.queue[length-7]}</td>
+			<td style = {entryStyle}>{this.props.counter[length-7]}</td>
 			</tr>
 			<tr>
-			<td style = {entryStyle}>{this.props.queue[7]}</td>
-			<td style = {entryStyle}>{this.props.counter[7]}</td>
+			<td style = {entryStyle}>{this.props.queue[length-8]}</td>
+			<td style = {entryStyle}>{this.props.counter[length-8]}</td>
 			</tr>
 			<tr>
-			<td style = {entryStyle}>{this.props.queue[8]}</td>
-			<td style = {entryStyle}>{this.props.counter[8]}</td>
+			<td style = {entryStyle}>{this.props.queue[length-9]}</td>
+			<td style = {entryStyle}>{this.props.counter[length-9]}</td>
 			</tr>
 			<tr>
-			<td style = {entryStyle}>{this.props.queue[9]}</td>
-			<td style = {entryStyle}>{this.props.counter[9]}</td>
+			<td style = {entryStyle}>{this.props.queue[length-10]}</td>
+			<td style = {entryStyle}>{this.props.counter[length-10]}</td>
 			</tr>
 			</table>
 			);

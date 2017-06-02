@@ -15,7 +15,8 @@ var buttonStyle_hover = {
 	"font-size": "30px",
 	"padding": "20px 40px",
 	"border-radius": "10px",
-	"border": "2px solid #555555"
+	"border": "2px solid #555555",
+	"cursor": "pointer"
 };
 var nextBtn = React.createClass({
 	getInitialState: function() {
