@@ -29,19 +29,24 @@ var thStyle = {
 var Qserve = React.createClass({
 	getInitialState: function() {
 		return {
-			queue: new Array(),
-			counter: 1
+			counter: null,
+			serving: null
 		};
 	},
+	
 	componentWillMount: function() {
-		var items = this.state.queue;
 		var firebaseRef = Firebase.database().ref().child('Qserving');
-		firebaseRef.on("value", function(snapshot) {
-			items[0] = snapshot.val();
-			this.setState({
-				queue: items,
-				counter: 1
-			});
+		var user = Firebase.auth().currentUser;
+		var counterRef = Firebase.database().ref().child('Users').child(user.uid);
+		var counterNum = null;
+		var counterServing = null;
+		counterRef.on("value", function(snapshot){
+            counterNum = snapshot.val().counter;
+            counterServing = snapshot.val().serving;
+            this.setState({
+            	counter: counterNum,
+            	serving: counterServing
+            });
 		}.bind(this));
 	},
 	componentWillUnmount: function() {
@@ -56,7 +61,7 @@ var Qserve = React.createClass({
 			</tr>
 			<tr>
 			<td style = {entryStyle}>{this.state.counter}</td>
-			<td style = {entryStyle}>{this.state.queue[0]}</td>
+			<td style = {entryStyle}>{this.state.serving}</td>
 			</tr>
 			</table>
 			);

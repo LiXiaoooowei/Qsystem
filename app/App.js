@@ -42,7 +42,6 @@ var App = React.createClass( {
 			<li><Link to="/">Screen</Link></li>
 			<li><Link to="/counter">Counter</Link></li>
 			<li><Link to="/printer">Printer</Link></li>
-			<li style = {{"float": "right"}}><Link to="/login">Log In</Link></li>
 			</ul>
 			<iframe src = "https://www.youtube.com/embed/Gj8ec0yehrc?playlist=Gj8ec0yehrc&loop=1">
 			</iframe>	

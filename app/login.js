@@ -1,5 +1,4 @@
 import {Link, browserHistory} from 'react-router';
-import {connect} from 'react-redux';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 var React = require('react');
 var firebase = require('./components/FirebaseClient.js');
@@ -13,6 +12,19 @@ class login extends React.Component {
 			isLoggedIn: false
 		};
 		this.changeLoginStatus = this.changeLoginStatus.bind(this);
+	}
+	componentWillMount() {
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				this.setState({
+					isLoggedIn: true
+				});
+			} else {
+				this.setState({
+					isLoggedIn: false
+				});
+			}
+		}.bind(this));
 	}
 	changeLoginStatus(newValue) {
 		this.setState({

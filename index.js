@@ -3,6 +3,7 @@ import App from './app/App'
 import Counter from './app/counter'
 import Printer from './app/printer'
 import Login from './app/login'
+import Logout from './app/logout'
 import Firebase from './app/components/FirebaseClient'
 
 var React = require('react');
@@ -45,6 +46,7 @@ var Home = React.createClass({
 			<Route path = "/" component = {App} />
 			<Route path = "/counter" component = {Counter} onEnter = {this.requireAuth}/>
 			<Route path = "/login" component = {Login} />
+			<Route path = "/logout" component = {Logout} />
 			<Route path = "/printer" component = {Printer} />
 			</Router>
 			)

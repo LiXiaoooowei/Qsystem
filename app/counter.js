@@ -9,13 +9,25 @@ export default React.createClass({
 	getInitialState: function() {
 		return {
 			qwait: new Array(),
-			qserve: 0
+			qserve: 0,
+			isloggedIn: true
 		};
 	},
 	componentWillMount: function() {
 		var items = this.state.qwait;
 		var qserveRef = Firebase.database().ref().child("Qserving");
 		var queueRef = Firebase.database().ref().child("Qlist");
+		Firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				this.setState({
+					isLoggedIn: true
+				});
+			} else {
+				this.setState({
+					isLoggedIn: false
+				});
+			}
+		}.bind(this));
 		qserveRef.on("value", function(snapshot) {
 			var Qentry = snapshot.val();
 			items.shift();
@@ -39,11 +51,6 @@ export default React.createClass({
 	},
 	componentWillUnmount: function() {
 		Firebase.database().ref("Qlist").off();
-		Firebase.auth().signOut().then(function() {
-			alert("signed out success");
-		},function(error) {
-            alert("signout error");
-		});
 	},
 	render() {
 		return (
@@ -52,9 +59,9 @@ export default React.createClass({
 			<li><Link to="/">Screen</Link></li>
 			<li><Link to="/counter">Counter</Link></li>
 			<li><Link to="/printer">Printer</Link></li>
-			<li style = {{"float": "right"}}><Link to="/login">Log In</Link></li>
+			<li style = {{"float": "right"}}><Link to="/logout">Log Out</Link></li>
 			</ul>
-			<div style = {{"margin-right":"50px", "margin-left": "10px"}}><Qserve /></div>
+			<div style = {{"margin-right":"50px", "margin-left": "10px"}}><Qserve/></div>
 			<div style = {{"margin-right": "50px"}}><Qwait qwait = {this.state.qwait} /></div>
 			<div style = {{"margin-top": "50px", "margin-right": "150px"}}><NextBtn /></div>
 			</div>
