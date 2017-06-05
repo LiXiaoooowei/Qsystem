@@ -1,5 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var Firebase = require('./FirebaseClient');
+
 var input_text = {
 	"width": "400px",
 	"padding": "12px 20px",
@@ -68,7 +70,13 @@ class form extends React.Component {
 		});
 	}
 	handleSubmit(event) {
-        alert('submitted' + this.state.email + this.state.password);
+        var email_ = this.state.email;
+        var password_ = this.state.password;
+        Firebase.auth().signInWithEmailAndPassword(email_,password_).then((user)=>{
+        	this.props.onChange(true);
+        }).catch(function(error){
+        	console.log(error.message);
+        });
         event.preventDefault();
 	}
 	render() {

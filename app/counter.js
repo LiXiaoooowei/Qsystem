@@ -39,6 +39,11 @@ export default React.createClass({
 	},
 	componentWillUnmount: function() {
 		Firebase.database().ref("Qlist").off();
+		Firebase.auth().signOut().then(function() {
+			alert("signed out success");
+		},function(error) {
+            alert("signout error");
+		});
 	},
 	render() {
 		return (
