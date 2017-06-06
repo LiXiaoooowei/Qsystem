@@ -3,6 +3,7 @@ var React = require('react');
 var Qwait = require('./components/Qwaiting.js');
 var Qserve = require('./components/Qserving.js');
 var NextBtn = require('./components/NextBtn.js');
+var ClearBtn = require('./components/ClearBtn.js');
 var Firebase = require('./components/FirebaseClient.js');
 
 export default React.createClass({
@@ -48,6 +49,16 @@ export default React.createClass({
 				qserve: Qserve
 			});
 		}.bind(this));
+
+		queueRef.on("child_removed", function(snapshot){
+			var Qentry = snapshot.val().queueNumber;
+	        var qwait = this.state.qwait;
+	        var index = qwait.indexOf(Qentry);
+	        qwait.splice(index, 1);
+			this.setState({
+				qwait: items
+			});
+		}.bind(this));
 	},
 	componentWillUnmount: function() {
 		Firebase.database().ref("Qlist").off();
@@ -60,6 +71,7 @@ export default React.createClass({
 			<li><Link to="/counter">Counter</Link></li>
 			<li><Link to="/printer">Printer</Link></li>
 			<li style = {{"float": "right"}}><Link to="/logout">Log Out</Link></li>
+			<li style = {{"float": "right"}}><ClearBtn /></li>
 			</ul>
 			<div style = {{"margin-right":"50px", "margin-left": "10px"}}><Qserve/></div>
 			<div style = {{"margin-right": "50px"}}><Qwait qwait = {this.state.qwait} /></div>
