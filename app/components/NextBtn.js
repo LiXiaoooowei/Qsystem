@@ -3,20 +3,22 @@ var Firebase = require('./FirebaseClient.js');
 var buttonStyle = {
 	"color": "black",
 	"background-color": "#e7e7e7",
-	"font-size": "30px",
-	"padding": "20px 40px",
-	"border-radius": "10px",
-	"border": "2px solid #555555"
+	"font-size": "1.5rem",
+	"padding": "1.25rem 1.5rem",
+	"border-radius": "0.6rem",
+	"border": "2px solid #555555",
+	"width": "100%"
 };
 
 var buttonStyle_hover = {
 	"background-color": "#555555",
 	"color": "white",
-	"font-size": "30px",
-	"padding": "20px 40px",
-	"border-radius": "10px",
+	"font-size": "1.5rem",
+	"padding": "1.25rem 1.5rem",
+	"border-radius": "0.6rem",
 	"border": "2px solid #555555",
-	"cursor": "pointer"
+	"cursor": "pointer",
+	"width": "100%"
 };
 var nextBtn = React.createClass({
 	getInitialState: function() {

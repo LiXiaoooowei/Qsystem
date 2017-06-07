@@ -10522,25 +10522,25 @@ exports.default = React.createClass({
 			}
 		}.bind(this));
 
-		userRef.on("value", function (snapshot) {
-			var Qentry = snapshot.val().serving;
-			var index = items.indexOf(Qentry);
-			items.splice(index, 1);
+		queueRef.on("child_added", function (snapshot) {
+			var Qentry = snapshot.val().queueNumber;
+			var Centry = snapshot.val().servedCounter;
+			if (Centry == -1) {
+				items.push(Qentry);
+			}
 			this.setState({
 				qwait: items
 			});
 		}.bind(this));
 
-		queueRef.on("child_added", function (snapshot) {
+		queueRef.on("child_changed", function (snapshot) {
 			var Qentry = snapshot.val().queueNumber;
 			var Centry = snapshot.val().servedCounter;
-			var Qserve = this.state.qserve;
-			if (Centry == -1) {
-				items.push(Qentry);
+			if (Centry != -1 && items.indexOf(Qentry) != -1) {
+				items.splice(items.indexOf(Qentry), 1);
 			}
 			this.setState({
-				qwait: items,
-				qserve: Qserve
+				qwait: items
 			});
 		}.bind(this));
 
@@ -16848,8 +16848,7 @@ var App = React.createClass({
 		var counters = this.state.counter;
 		var firebaseRef = Firebase.database().ref();
 		var qlistRef = firebaseRef.child('Qlist');
-		var user1Ref = firebaseRef.child('Users').child("Wo0HpwlrfyXPeU242P4onM9kF8X2");
-		var user2Ref = firebaseRef.child('Users').child("fSnr6zLUouVvFTdJMe7lDXT5G8y1");
+
 		qlistRef.on("child_added", function (snapshot) {
 			var Qentry = snapshot.val().queueNumber;
 			var Centry = snapshot.val().servedCounter;
@@ -16862,29 +16861,29 @@ var App = React.createClass({
 				"counter": counters
 			});
 		}.bind(this));
-		user1Ref.on("value", function (snapshot) {
-			var Qentry = snapshot.val().serving;
-			var Centry = snapshot.val().counter;
-			if (items.indexOf(Qentry) == null && Qentry != 0) {
+		qlistRef.on("child_changed", function (snapshot) {
+			var Qentry = snapshot.val().queueNumber;
+			var Centry = snapshot.val().servedCounter;
+			if (Centry != -1 && items.indexOf(Qentry) == -1) {
 				items.push(Qentry);
 				counters.push(Centry);
-				this.setState({
-					"queue": items,
-					"counter": counters
-				});
 			}
+			this.setState({
+				"queue": items,
+				"counter": counters
+			});
 		}.bind(this));
-		user2Ref.on("value", function (snapshot) {
-			var Qentry = snapshot.val().serving;
-			var Centry = snapshot.val().counter;
-			if (items.indexOf(Qentry) == null && Qentry != 0) {
-				items.push(Qentry);
-				counters.push(Centry);
-				this.setState({
-					"queue": items,
-					"counter": counters
-				});
+		qlistRef.on("child_removed", function (snapshot) {
+			var Qentry = snapshot.val().queueNumber;
+			var Centry = snapshot.val().servedCounter;
+			if (items.indexOf(Qentry) != -1) {
+				items.splice(items.indexOf(Qentry), 1);
+				counters.splice(counters.indexOf(Centry), 1);
 			}
+			this.setState({
+				"queue": items,
+				"counter": counters
+			});
 		}.bind(this));
 	},
 	componentWillUnmount: function componentWillUnmount() {
@@ -17270,8 +17269,7 @@ var nextBtn = React.createClass({
 
 	getInitialState: function getInitialState() {
 		return {
-			hover: false,
-			counter: -1
+			hover: false
 		};
 	},
 	toggleHover: function toggleHover() {
@@ -17293,15 +17291,16 @@ var nextBtn = React.createClass({
 		qtotalRef.once("value", function (snapshot) {
 			var qtotal = snapshot.val();
 			qserveRef.once("value", function (snapshot) {
-				var currServing = snapshot.val() + 1;
+				var currServing = snapshot.val();
+				var counter_for_customer = -1;
 				if (currServing < qtotal) {
-					var counter_for_customer = -1;
-					while (counter_for_customer != -1) {
+					do {
+						currServing += 1;
 						customerRef.child(currServing).once("value", function (snapshot) {
 							counter_for_customer = snapshot.val().servedCounter;
-							currServing = currServing + 1;
-						}.bind(this));
-					};
+						});
+						console.log(counter_for_customer);
+					} while (counter_for_customer != -1);
 					firebaseRef.update({
 						"Qserving": currServing
 					});
@@ -17310,9 +17309,6 @@ var nextBtn = React.createClass({
 					});
 					userRef.update({
 						"serving": currServing
-					});
-					this.setState({
-						"counter": currServing
 					});
 				}
 			}.bind(this));
@@ -17323,11 +17319,6 @@ var nextBtn = React.createClass({
 		return React.createElement(
 			'div',
 			null,
-			React.createElement(
-				'h1',
-				null,
-				this.state.counter
-			),
 			React.createElement(
 				'button',
 				{ onClick: this.nextHandler, style: style, onMouseEnter: this.toggleHover, onMouseLeave: this.toggleHover },

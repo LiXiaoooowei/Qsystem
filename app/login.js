@@ -40,7 +40,7 @@ class login extends React.Component {
 	}
 	render() {
 		return (<div>
-			<ul role = "nav" style = {{"width": "100%", "position": "absolute", "margin-left": "-60px"}}>
+			<ul role = "nav">
 			<li><Link to="/">Screen</Link></li>
 			<li><Link to="/counter">Counter</Link></li>
 			<li><Link to="/printer">Printer</Link></li>

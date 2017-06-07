@@ -59,16 +59,15 @@ var App = React.createClass( {
 	},
 	render: function() {
 		return (<div>
-			<ul role = "nav" style = {{"width": "100%", "position": "absolute", "margin-left": "-60px"}}>
+			<ul role = "nav" >
 			<li><Link to="/">Screen</Link></li>
 			<li><Link to="/counter">Counter</Link></li>
 			<li><Link to="/printer">Printer</Link></li>
 			</ul>
-			<div style = {{"margin-top": "30px"}}>
-			<iframe src = "https://www.youtube.com/embed/Gj8ec0yehrc?playlist=Gj8ec0yehrc&loop=1">
-			</iframe>
+			<div>
+			<iframe src = "https://www.youtube.com/embed/Gj8ec0yehrc?playlist=Gj8ec0yehrc&loop=1" />
 			</div>
-			<div style = {{"margin-top": "30px"}}>
+			<div>
 			<Qlist queue = {this.state.queue} counter = {this.state.counter}/>
 			</div>
 			</div>

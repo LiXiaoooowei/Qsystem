@@ -1,28 +1,30 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var headerStyle = {
+var headerStyle_large = {
 	"border": "1px solid black",
 	"border-collapse": "collapse",
-	"width": "400px",
+	"width": "30%",
+	"margin-right": "2.5%",
+	"margin-top": "10%",
 	"text-align": "center",
-	"padding": 15,
+	"padding": "1rem",
 	"float": "right"
 };
 var entryStyle = {
 	"border": "1px solid black",
 	"border-collapse": "collapse",
-	"padding": 15,
-	"font-size": 40
+	"padding": "1rem",
+	"font-size": "1.5rem"
 };
 
 var thStyle = {
 	"border": "1px solid black",
 	"border-collapse": "collapse",
-	"padding": 15,
+	"padding": "1rem",
 	"background-color": "#ddd",
 	"color": "black",
-	"font-size": 20
+	"font-size": "1.5rem"
 }
 
 var Qlist = React.createClass({
@@ -31,7 +33,7 @@ var Qlist = React.createClass({
 		var length = this.props.queue.length;
 
 		return(
-			<table style={headerStyle}>
+			<table style={headerStyle_large}>
 			<tr>
 			<th style = {thStyle}>Queue Number</th>
 			<th style = {thStyle}>Served by Counter</th>

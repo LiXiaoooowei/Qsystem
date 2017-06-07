@@ -4,25 +4,24 @@ var ReactDOM = require('react-dom');
 var headerStyle = {
 	"border": "1px solid black",
 	"border-collapse": "collapse",
-	"width": "250px",
+	"width": "100%",
 	"text-align": "center",
-	"padding": 15,
-	"float": "right"
+	"padding": "1rem"
 };
 var entryStyle = {
 	"border": "1px solid black",
 	"border-collapse": "collapse",
-	"padding": 15,
-	"font-size": 40
+	"padding": "1rem",
+	"font-size": "1.5rem"
 };
 
 var thStyle = {
 	"border": "1px solid black",
 	"border-collapse": "collapse",
-	"padding": 15,
+	"padding": "1rem",
 	"background-color": "#ddd",
 	"color": "black",
-	"font-size": 20
+	"font-size": "1rem"
 }
 
 var Qwait = React.createClass({

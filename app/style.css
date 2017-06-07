@@ -1,101 +1,47 @@
 div {
-	display: inline-block;
-	vertical-align: top;
+  width: 100%;
 }
-iframe {
-	height: 500px;
-	width: 700px;
-	margin-right: 50px;
-	margin-left: 50px;
-	margin-top:40px;
+
+@media only screen and (max-width: 768px) {
+  iframe {
+    height: 300px;
+    width: 90%;
+    margin-right: 2.5%;
+    margin-left: 2.5%;
+    margin-top:10%;
+  }
 }
-.Qtable {
-	margin-left: 50px;
+@media only screen and (min-width: 768px) {
+  iframe {
+    height: 400px;
+    width: 60%;
+    margin-right: 2.5%;
+    margin-left: 2.5%;
+    margin-top:10%;
+    float: left;
+  }
 }
-button {
-	left: 0px;
-	-webkit-transition-duration:0.4s;
-	transition-duration: 0.4s;
-}
+
 ul {
-	list-style-type: none;
-	margin: 0;
-	padding:0;
-	overflow: hidden;
-	background-color: #333;
+  list-style-type: none;
+  margin: 0;
+  padding:0;
+  overflow: hidden;
+  width: 100%;
+  background-color: #333;
 }
 li {
-	float:left;
+  float:left;
 }
 
 li a {
-    display: block;
-    color:white;
-    text-align: center;
-    padding:14px 16px;
-    text-decoration: none;
+  display: block;
+  color:white;
+  text-align: center;
+  padding:14px 16px;
+  text-decoration: none;
 }
 
 li a:hover {
-	background-color: #111;
+  background-color: #111;
 }
-
-.active {
-	background-color: #4CAF50;
-}
-
-.addBtn {
-	background-color: #e7e7e7;
-	border:none;
-	color:black;
-	padding:15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display:inline-block;
-	font-size: 30px;
-	border-radius: 10px;
-	border: 2px solid #555555;
-}
-
-.addBtn:hover {
-	background-color: #555555;
-	color:white;
-	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-}
-
-.addBtn:active {
-	transform: translateY(4px);
-}
-table {
-	border-collapse: collapse;
-	width: 400px;
-	margin-top: 40px;
-}
-table,th,td {
-	border: 1px solid black;
-}
-th {
-	height:30px;
-	text-align: center;
-	padding:15px;
-	border-bottom: 1px solid black;
-	background-color: #ddd;
-	color:black;
-	font-size: 20px;
-}
-td {
-	height: 20px;
-	vertical-align: center;
-	padding:10px;
-	text-align: center;
-	border-bottom: 1px solid black;
-	font-size: 30px;
-}
-
-tr:hover {
-	background-color: #f5f5f5;
-}
-
-
-
-

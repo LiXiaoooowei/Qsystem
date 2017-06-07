@@ -3,41 +3,38 @@ var ReactDOM = require('react-dom');
 var Firebase = require('./FirebaseClient');
 
 var input_text = {
-  "width": "300px",
-  "padding": "12px 20px",
-  "margin": "8px 0",
+  "padding": "0.75rem 1.6rem",
   "box-sizing": "border-box",
-  "border": "2px solid gray",
-  "border-radius": "4px"
+  "border": "0.125rem solid gray",
+  "border-radius": "0.25rem",
+  "font-size": "1rem",
+  "width": "100%"
 };
 var input_submit = {
-  "width": "300px",
   "background-color": "lightgray",
   "border": "none",
   "color": "black",
-  "padding": "16px 32px",
+  "padding": "1rem 2rem",
   "text-decoration": "none",
-  "margin": "4px 2px",
   "cursor": "pointer",
-  "font-size": "20px",
-  "border-radius": "8px"
+  "font-size": "1.25rem",
+  "border-radius": "0.5rem",
+  "width": "100%"
 };
 var input_submit_hover = {
-  "width": "300px",
   "background-color": "#555555",
   "border": "none",
   "color": "white",
-  "padding": "16px 32px",
+  "padding": "1rem 2rem",
   "text-decoration": "none",
-  "margin": "4px 2px",
   "cursor": "pointer",
-  "font-size": "20px",
-  "border-radius": "8px"
+  "font-size": "1.25rem",
+  "border-radius": "0.5rem",
+  "width": "100%"
 };
 
 var input_label = {
-  "letter-spacing": "3px",
-  "font-size": "20px",
+  "font-size": "1.5rem",
   "font-family": "Sans-serif"
 };
 

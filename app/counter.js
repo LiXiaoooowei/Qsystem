@@ -7,6 +7,34 @@ var ClearBtn = require('./components/ClearBtn.js');
 var CutQform = require('./components/cutQform');
 var Firebase = require('./components/FirebaseClient.js');
 
+var qServe_large = {
+	"float": "left",
+	"width": "30%",
+	"margin-top": "5%",
+	"margin-left": "5%"
+};
+
+var qWait_large = {
+	"float": "left",
+	"width": "25%",
+	"margin-top": "5%",
+	"margin-left": "2.5%"
+};
+
+var qNextBtn_large = {
+	"float": "left",
+	"width": "30%",
+	"margin-top": "5%",
+	"margin-left": "2.5%"
+};
+
+var qCutBtn_large = {
+	"float": "left",
+	"width": "30%",
+	"margin-top": "5%",
+	"margin-left": "2.5%"
+};
+
 export default React.createClass({
 	getInitialState: function() {
 		return {
@@ -72,18 +100,18 @@ export default React.createClass({
 	},
 	render() {
 		return (
-			<div>
-			<ul role = "nav" style = {{"width": "100%", "position": "absolute", "margin-left": "-60px"}}>
+			<div style = {{"width": "100%"}}>
+			<ul role = "nav">
 			<li><Link to="/">Screen</Link></li>
 			<li><Link to="/counter">Counter</Link></li>
 			<li><Link to="/printer">Printer</Link></li>
 			<li style = {{"float": "right"}}><Link to="/logout">Log Out</Link></li>
 			<li style = {{"float": "right"}}><ClearBtn /></li>
 			</ul>
-			<div style = {{"margin-top": "20px"}}><Qserve/></div>
-			<div style = {{"margin-top": "20px", "margin-left": "30px"}}><Qwait qwait = {this.state.qwait} /></div>
-			<div style = {{"margin-top": "80px", "position": "absolute", "margin-left": "30px"}}><NextBtn /></div>
-			<div style = {{"margin-top": "200px", "position": "absolute", "margin-left": "30px"}}><CutQform /></div>
+			<div style = {qServe_large}><Qserve/></div>
+			<div style = {qWait_large}><Qwait qwait = {this.state.qwait} /></div>
+			<div style = {qNextBtn_large}><NextBtn /></div>
+			<div style = {qCutBtn_large}><CutQform /></div>
 			</div>
 		)
 	}

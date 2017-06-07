@@ -3,20 +3,26 @@ var Firebase = require('./FirebaseClient.js');
 var buttonStyle = {
 	"color": "black",
 	"background-color": "#e7e7e7",
-	"font-size": "40px",
-	"padding": "30px 60px",
-	"border-radius": "20px",
-	"border": "2px solid #555555"
+	"font-size": "2rem",
+	"text-align": "center",
+	"padding": "1rem 2rem",
+	"border-radius": "1.25rem",
+	"border": "2px solid #555555",
+	"width": "100%",
+	"min-width": "200px"
 };
 
 var buttonStyle_hover = {
 	"background-color": "#555555",
 	"color": "white",
-	"font-size": "40px",
-	"padding": "30px 60px",
-	"border-radius": "20px",
+	"font-size": "2rem",
+	"text-align": "center",
+	"border-radius": "1.25rem",
 	"border": "2px solid #555555",
-	"cursor": "pointer"
+	"padding": "1rem 2rem",
+	"cursor": "pointer",
+	"width": "100%",
+	"min-width": "200px"
 };
 
 var addBtn = React.createClass({
@@ -46,7 +52,7 @@ var addBtn = React.createClass({
 		});
 	},
 	render: function() {
-		var style = this.state.hover? buttonStyle_hover: buttonStyle ;  
+		var style = this.state.hover? buttonStyle_hover: buttonStyle ;
 
 		return (
 			<div>
