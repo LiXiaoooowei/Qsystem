@@ -7,11 +7,29 @@ var ClearBtn = require('./components/ClearBtn.js');
 var CutQform = require('./components/cutQform');
 var Firebase = require('./components/FirebaseClient.js');
 
+var WINDOW_WIDTH_MOBILE = 480;
+var WINDOW_WIDTH_TABLET_PORTRAIT = 768;
+var WINDOW_WIDTH_TABLET_LANDSCAPE = 1024;
+var WINDOW_WIDTH_LAPTOP = 1600;
+
 var qServe_large = {
 	"float": "left",
 	"width": "30%",
 	"margin-top": "5%",
 	"margin-left": "5%"
+};
+
+var qServe_medium = {
+	"float": "left",
+	"width": "50%",
+	"margin-top": "5%",
+	"margin-left": "5%"
+};
+var qServe_small = {
+	"float": "left",
+	"width": "80%",
+	"margin-top": "5%",
+	"margin-left": "10%"
 };
 
 var qWait_large = {
@@ -21,11 +39,31 @@ var qWait_large = {
 	"margin-left": "2.5%"
 };
 
+var qWait_medium = {
+	"float": "left",
+	"width": "30%",
+	"margin-top": "5%",
+	"margin-left": "2.5%"
+};
+
+var qWait_small = {
+	"float": "left",
+	"width": "60%",
+	"margin-top": "5%",
+	"margin-left": "20%"
+};
+
 var qNextBtn_large = {
 	"float": "left",
 	"width": "30%",
 	"margin-top": "5%",
 	"margin-left": "2.5%"
+};
+var qNextBtn_medium = {
+	"float": "left",
+	"width": "80%",
+	"margin-top": "5%",
+	"margin-left": "10%"
 };
 
 var qCutBtn_large = {
@@ -34,16 +72,25 @@ var qCutBtn_large = {
 	"margin-top": "5%",
 	"margin-left": "2.5%"
 };
+var qCutBtn_medium = {
+	"float": "left",
+	"width": "80%",
+	"margin-top": "5%",
+	"margin-left": "10%"
+};
 
 export default React.createClass({
 	getInitialState: function() {
 		return {
 			qwait: new Array(),
 			qserve: 0,
-			isloggedIn: true
+			isloggedIn: true,
+			width: null,
+			height: null
 		};
 	},
 	componentWillMount: function() {
+		this.updateDimensions();
 		var items = this.state.qwait;
 		var firebaseRef = Firebase.database().ref();
 		var qserveRef = firebaseRef.child("Qserving");
@@ -95,8 +142,19 @@ export default React.createClass({
 			});
 		}.bind(this));
 	},
+
+	updateDimensions: function() {
+		this.setState({
+			width: window.innerWidth,
+			height: window.innerHeight
+		});
+	},
+	componentDidMount: function() {
+		window.addEventListener("resize", this.updateDimensions);
+	},
 	componentWillUnmount: function() {
 		Firebase.database().ref("Qlist").off();
+		window.removeEventListener("resize", this.updateDimensions);
 	},
 	render() {
 		return (
@@ -108,10 +166,10 @@ export default React.createClass({
 			<li style = {{"float": "right"}}><Link to="/logout">Log Out</Link></li>
 			<li style = {{"float": "right"}}><ClearBtn /></li>
 			</ul>
-			<div style = {qServe_large}><Qserve/></div>
-			<div style = {qWait_large}><Qwait qwait = {this.state.qwait} /></div>
-			<div style = {qNextBtn_large}><NextBtn /></div>
-			<div style = {qCutBtn_large}><CutQform /></div>
+			<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qServe_large: (this.state.width > WINDOW_WIDTH_MOBILE? qServe_medium: qServe_small)}><Qserve/></div>
+			<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qWait_large: (this.state.width > WINDOW_WIDTH_MOBILE? qWait_medium: qWait_small)}><Qwait qwait = {this.state.qwait} /></div>
+			<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qNextBtn_large: qNextBtn_medium}><NextBtn /></div>
+			<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qCutBtn_large: qCutBtn_medium}><CutQform /></div>
 			</div>
 		)
 	}

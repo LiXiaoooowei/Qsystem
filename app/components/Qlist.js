@@ -4,9 +4,7 @@ var ReactDOM = require('react-dom');
 var headerStyle_large = {
 	"border": "1px solid black",
 	"border-collapse": "collapse",
-	"width": "30%",
-	"margin-right": "2.5%",
-	"margin-top": "10%",
+	"width": "100%",
 	"text-align": "center",
 	"padding": "1rem",
 	"float": "right"
