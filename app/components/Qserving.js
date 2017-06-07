@@ -33,7 +33,7 @@ var Qserve = React.createClass({
 			serving: null
 		};
 	},
-	
+
 	componentWillMount: function() {
 		var firebaseRef = Firebase.database().ref().child('Qserving');
 		var user = Firebase.auth().currentUser;
@@ -41,12 +41,12 @@ var Qserve = React.createClass({
 		var counterNum = null;
 		var counterServing = null;
 		counterRef.on("value", function(snapshot){
-            counterNum = snapshot.val().counter;
-            counterServing = snapshot.val().serving;
-            this.setState({
-            	counter: counterNum,
-            	serving: counterServing
-            });
+			counterNum = snapshot.val().counter;
+			counterServing = snapshot.val().serving;
+			this.setState({
+				counter: counterNum,
+				serving: counterServing
+			});
 		}.bind(this));
 	},
 	componentWillUnmount: function() {
@@ -64,7 +64,7 @@ var Qserve = React.createClass({
 			<td style = {entryStyle}>{this.state.serving}</td>
 			</tr>
 			</table>
-			);
+		);
 	}
 });
 

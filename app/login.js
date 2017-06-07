@@ -39,15 +39,15 @@ class login extends React.Component {
 		}
 	}
 	render() {
-		return (<div> 
-			<ul role = "nav">
+		return (<div>
+			<ul role = "nav" style = {{"width": "100%", "position": "absolute", "margin-left": "-60px"}}>
 			<li><Link to="/">Screen</Link></li>
 			<li><Link to="/counter">Counter</Link></li>
 			<li><Link to="/printer">Printer</Link></li>
 			</ul>
 			<div style = {{"margin-left": "400px", "margin-top": "50px", "margin-right": "400px"}}><LoginForm onChange = {this.changeLoginStatus}/></div>
-			</div>)	
-		
+			</div>)
+
 	}
 }
 

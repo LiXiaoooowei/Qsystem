@@ -12,15 +12,14 @@ export default React.createClass({
 		};
 	},
 	render() {
-		return (<div> 
-			<ul role = "nav">
+		return (<div>
+			<ul role = "nav" style = {{"width": "100%", "position": "absolute", "margin-left": "-60px"}}>
 			<li><Link to="/">Screen</Link></li>
 			<li><Link to="/counter">Counter</Link></li>
 			<li><Link to="/printer">Printer</Link></li>
 			</ul>
 			<div style = {{"margin-left": "500px", "margin-top": "100px"}}><Qlabel /></div>
-			<div style = {{"margin-left": "470px", "margin-top": "50px","margin-right": "470px", "display": "inline-block"}}><AddBtn/></div>
+			<div style = {{"margin-left": "470px", "margin-top": "50px", "display": "inline-block"}}><AddBtn/></div>
 			</div>)
 	}
 })
-

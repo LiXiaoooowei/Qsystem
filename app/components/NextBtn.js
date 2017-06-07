@@ -38,14 +38,21 @@ var nextBtn = React.createClass({
 		var userRef = firebaseRef.child('Users').child(user.uid);
 		var counter = null;
 		userRef.once("value", function(snapshot){
-            counter = snapshot.val().counter;
+			counter = snapshot.val().counter;
 		});
 		qtotalRef.once("value", function(snapshot){
 			var qtotal = snapshot.val();
 			qserveRef.once("value",function(snapshot){
 				var currServing = snapshot.val();
+				var counter_for_customer = -1;
 				if (currServing < qtotal) {
-					currServing = currServing + 1;	
+				do {
+						currServing += 1;
+						customerRef.child(currServing).once("value", function(snapshot){
+							counter_for_customer = snapshot.val().servedCounter;
+						});
+						console.log(counter_for_customer);
+					} while(counter_for_customer != -1);
 					firebaseRef.update({
 						"Qserving":currServing
 					});
@@ -56,16 +63,16 @@ var nextBtn = React.createClass({
 						"serving": currServing
 					});
 				}
-			});
-		});
+			}.bind(this));
+		}.bind(this));
 	},
 	render: function() {
-		var style = this.state.hover? buttonStyle_hover: buttonStyle ;  
+		var style = this.state.hover? buttonStyle_hover: buttonStyle ;
 		return (
 			<div>
 			<button onClick = {this.nextHandler} style = {style} onMouseEnter = {this.toggleHover} onMouseLeave = {this.toggleHover}>Next Customer</button>
 			</div>
-			);
+		);
 	}
 });
 
