@@ -13,7 +13,7 @@ div {
 }
 @media only screen and (min-width: 768px) {
   iframe {
-    height: 400px;
+    height: 500px;
     width: 70%;
     margin-right: 0;
     margin-left: 0;

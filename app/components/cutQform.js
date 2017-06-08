@@ -61,7 +61,8 @@ class form extends React.Component {
     });
   }
   handleSubmit(event) {
-    if (!isNaN(this.state.number)) {
+    if (!(/^\+?(0|[1-9]\d*)$/.test(this.state.number))) {
+      alert(this.state.number);
       alert("You must enter a valid number!");
     } else {
       var number_ = parseInt(this.state.number);
@@ -69,25 +70,41 @@ class form extends React.Component {
       var customerRef = firebaseRef.child('Qlist');
       var qserveRef = firebaseRef.child('Qserving');
       var qtotalRef = firebaseRef.child('Qtotal');
+      var baseRef = firebaseRef.child('baseNumber');
       var user = Firebase.auth().currentUser;
       var userRef = firebaseRef.child('Users').child(user.uid);
       var counter = null;
+      var canUpdateQserve = true;
+      var baseNum = null;
+
+      baseRef.once("value", function(snapshot){
+        baseNum = snapshot.val();
+      });
       userRef.once("value", function(snapshot){
         counter = snapshot.val().counter;
       });
       qtotalRef.once("value", function(snapshot){
         var qtotal = snapshot.val();
-        if (number_ > qtotal) {
+        if (number_ > qtotal || number_ <= baseNum) {
           alert(number_+" does not exist!");
           this.toggleHover();
           return;
         };
-        customerRef.child(number_).update({
-          "servedCounter": counter
+        customerRef.child(number_).once("value", function(snapshot){
+          if (snapshot.val().servedCounter != -1 ) {
+            alert("Customer "+number_+ " has already been served!");
+            canUpdateQserve = false;
+            return;
+          }
         });
-        userRef.update({
-          "serving": number_
-        });
+        if(canUpdateQserve) {
+          customerRef.child(number_).update({
+            "servedCounter": counter
+          });
+          userRef.update({
+            "serving": number_
+          });
+        }
       });
     }
     event.preventDefault();

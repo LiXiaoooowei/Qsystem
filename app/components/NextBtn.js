@@ -36,9 +36,14 @@ var nextBtn = React.createClass({
 		var customerRef = firebaseRef.child('Qlist');
 		var qserveRef = firebaseRef.child('Qserving');
 		var qtotalRef = firebaseRef.child('Qtotal');
+		var baseRef = firebaseRef.child('baseNumber');
 		var user = Firebase.auth().currentUser;
 		var userRef = firebaseRef.child('Users').child(user.uid);
 		var counter = null;
+		var baseNum = null;
+		baseRef.once("value", function(snapshot) {
+			baseNum = snapshot.val();
+		});
 		userRef.once("value", function(snapshot){
 			counter = snapshot.val().counter;
 		});

@@ -1,5 +1,9 @@
 var React = require('react');
 var Firebase = require('./FirebaseClient.js');
+
+var RANDOM_NUMBER_LOWER_LIMIT = 500;
+var RANDOM_NUMBER_HIGHER_LIMIT = 600;
+
 var buttonStyle = {
 	"color": "black",
 	"background-color": "#e7e7e7",
@@ -38,8 +42,16 @@ var addBtn = React.createClass({
 		var firebaseRef = Firebase.database().ref();
 		var userRef = firebaseRef.child('Qlist');
 		var qtotalRef = firebaseRef.child('Qtotal');
+
 		qtotalRef.once("value",function(snapshot){
 			var currTotal = snapshot.val()+1;
+			if (currTotal == 1 ){
+				currTotal = Math.floor((6-Math.random())*100);
+				firebaseRef.update({
+					"baseNumber": currTotal-1,
+					"Qserving": currTotal-1
+				});
+			}
 			firebaseRef.update({
 				"Qtotal":currTotal
 			});
