@@ -2,39 +2,23 @@ var React = require('react');
 var Firebase = require('./FirebaseClient.js');
 
 var style_normal = {
-	"display": "block",
-	"background-color": "#333",
 	"color": "white",
-	"border": "none",
-	"padding": "14px 16px",
-	"text-align": "center",
 	"text-decoration": "none",
-	"font-size":"16px",
-	"font-family": "serif"
-};
-var style_hover = {
-	"display": "block",
-	"background-color": "#111",
-	"color": "white",
+	"background-color": "transparent",
 	"border": "none",
-	"padding": "14px 16px",
-	"text-align": "center",
-	"text-decoration": "none",
-	"font-size":"16px",
-	"cursor": "pointer",
-	"font-family": "serif"
+	"margin": "0",
+	"padding": "0"
 };
+
+var style_bs = {
+	"text-decoration": "none",
+	"background-color": "transparent",
+	"border": "none",
+	"margin": "0",
+	"padding": "0"
+};
+
 var clearBtn = React.createClass({
-	getInitialState: function() {
-		return {
-			hover: false
-		}
-	},
-	toggleHover: function() {
-		this.setState({
-			hover: !this.state.hover
-		})
-	},
 	handleClick: function() {
 		var firebaseRef = Firebase.database().ref();
 		var qlistRef = firebaseRef.child('Qlist');
@@ -54,13 +38,13 @@ var clearBtn = React.createClass({
 			alert("All entries cleared!");
 		}.bind(this));
 		qlistRef.remove();
-		
+
 	},
 	render: function() {
-		var style = this.state.hover? style_hover: style_normal;  
+		var style = this.props.bs_style? style_bs: style_normal;
 		return (
 			<div>
-			<button style = {style} onClick = {this.handleClick} onMouseEnter = {this.toggleHover} onMouseLeave = {this.toggleHover}>Clear</button>
+			<button style = {style} onClick = {this.handleClick}>Clear</button>
 			</div>
 			);
 	}

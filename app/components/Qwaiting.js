@@ -21,7 +21,8 @@ var thStyle = {
 	"padding": "1rem",
 	"background-color": "#ddd",
 	"color": "black",
-	"font-size": "1rem"
+	"font-size": "1.5rem",
+	"text-align": "center"
 }
 
 var Qwait = React.createClass({

@@ -12,25 +12,25 @@ var input_text = {
 };
 var input_submit = {
   "background-color": "lightgray",
-  "border": "none",
   "color": "black",
   "padding": "1rem 2rem",
   "text-decoration": "none",
   "cursor": "pointer",
-  "font-size": "1.25rem",
+  "font-size": "1.5rem",
   "border-radius": "0.5rem",
-  "width": "100%"
+  "width": "100%",
+  "border": "2px solid #555555"
 };
 var input_submit_hover = {
   "background-color": "#555555",
-  "border": "none",
   "color": "white",
   "padding": "1rem 2rem",
   "text-decoration": "none",
   "cursor": "pointer",
-  "font-size": "1.25rem",
+  "font-size": "1.5rem",
   "border-radius": "0.5rem",
-  "width": "100%"
+  "width": "100%",
+  "border": "2px solid #555555"
 };
 
 var input_label = {
@@ -88,7 +88,7 @@ class form extends React.Component {
       <form onSubmit = {this.handleSubmit}>
       <label style = {input_label}>Serve now: </label> <br />
       <input type = "text" name = "number" value = {this.state.number} placeholder = "Please enter a customer number..." onChange = {this.handleNumberChange} style = {input_text}/>
-      <br />
+      <br /><br/>
       <input type = "submit" value = "Add" style = {style} onMouseEnter = {this.toggleHover} onMouseLeave = {this.toggleHover}/>
       </form>
     );

@@ -1,5 +1,5 @@
 import {Link} from 'react-router';
-import {Navbar, Nav,NavDropdown, NavItem} from 'react-bootstrap';
+import {Navbar, Nav,NavDropdown, MenuItem, NavItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 var React = require('react');
 var ClearBtn = require('./components/ClearBtn.js');
@@ -8,24 +8,22 @@ class MenuFlat extends React.Component {
   render() {
     return (
       <Navbar inverse >
-            <Nav>
-              <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
+           <Nav>
+              <NavDropdown title="Menu">
               <LinkContainer to = "/">
-                <NavItem>Screen</NavItem>
+                <MenuItem pullRight>Screen</MenuItem>
                 </LinkContainer>
                 <LinkContainer to = "/counter">
-                <NavItem>Counter</NavItem>
+                <MenuItem pullRight>Counter</MenuItem>
                 </LinkContainer>
                 <LinkContainer to = "/printer">
-                <NavItem>Printer</NavItem>
+                <MenuItem pullRight>Printer</MenuItem>
+                </LinkContainer>
+                <NavItem><ClearBtn bs_style = {true} /></NavItem>
+                <LinkContainer to = "/logout">
+                <NavItem>Log Out</NavItem>
                 </LinkContainer>
               </NavDropdown>
-            </Nav>
-            <Nav pullRight>
-              <NavItem><ClearBtn /></NavItem>
-              <LinkContainer to = "/logout">
-              <NavItem>Log Out</NavItem>
-              </LinkContainer>
             </Nav>
         </Navbar>
     )

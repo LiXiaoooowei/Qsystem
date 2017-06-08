@@ -8,7 +8,7 @@ class MenuFlat extends React.Component {
     return (
       <Navbar inverse >
             <Nav>
-              <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
+              <NavDropdown title="Menu" id="basic-nav-dropdown">
               <LinkContainer to = "/">
                 <NavItem>Screen</NavItem>
                 </LinkContainer>
