@@ -8,8 +8,7 @@ var buttonStyle = {
 	"padding": "1rem 2rem",
 	"border-radius": "1.25rem",
 	"border": "2px solid #555555",
-	"width": "100%",
-	"min-width": "200px"
+	"width": "100%"
 };
 
 var buttonStyle_hover = {
@@ -21,8 +20,7 @@ var buttonStyle_hover = {
 	"border": "2px solid #555555",
 	"padding": "1rem 2rem",
 	"cursor": "pointer",
-	"width": "100%",
-	"min-width": "200px"
+	"width": "100%"
 };
 
 var addBtn = React.createClass({

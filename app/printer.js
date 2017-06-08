@@ -48,7 +48,7 @@ export default React.createClass({
 				<div>
 				<MenuCollapse />
 				<div style = {{"margin-left": "25%", "margin-top": "20%", "width": "50%", "text-align": "center"}}><Qlabel /></div>
-				<div style = {{"margin-left": "40%", "margin-top": "5%", "width": "20%"}}><AddBtn/></div>
+				<div style = {{"margin-left": "25%", "margin-top": "5%", "width": "50%"}}><AddBtn/></div>
 				</div>)
 			}
 		}
