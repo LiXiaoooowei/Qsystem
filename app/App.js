@@ -15,8 +15,8 @@ var WINDOW_WIDTH_LAPTOP = 1600;
 var queue_large = {
 	"width": "30%",
 	"float": "left",
-	"margin-right": "2.5%",
-	"margin-top": "10%"
+	"margin-right": "0%",
+	"margin-top": "0%"
 };
 
 var queue_medium = {
