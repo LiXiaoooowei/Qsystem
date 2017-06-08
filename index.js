@@ -54,4 +54,3 @@ var Home = React.createClass({
 	});
 
 	ReactDOM.render(<Home />, document.getElementById('app'));
-

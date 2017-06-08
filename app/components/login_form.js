@@ -3,41 +3,41 @@ var ReactDOM = require('react-dom');
 var Firebase = require('./FirebaseClient');
 
 var input_text = {
-	"width": "400px",
-	"padding": "12px 20px",
-	"margin": "8px 0",
+	"width": "100%",
+	"padding": "0.75rem 1.25rem",
+	"margin": "0.5rem 0",
 	"box-sizing": "border-box",
 	"border": "2px solid gray",
-	"border-radius": "4px"
+	"border-radius": "0.25rem"
 };
 var input_submit = {
-	"width": "400px",
+	"width": "100%",
 	"background-color": "lightgray",
 	"border": "none",
 	"color": "black",
-	"padding": "16px 32px",
+	"padding": "1rem 2rem",
 	"text-decoration": "none",
 	"margin": "4px 2px",
 	"cursor": "pointer",
-	"font-size": "30px",
-	"border-radius": "8px"
+	"font-size": "2.5rem",
+	"border-radius": "0.5rem"
 };
 var input_submit_hover = {
-	"width": "400px",
+	"width": "100%",
 	"background-color": "#555555",
 	"border": "none",
 	"color": "white",
-	"padding": "16px 32px",
+	"padding": "1rem 2rem",
 	"text-decoration": "none",
 	"margin": "4px 2px",
 	"cursor": "pointer",
-	"font-size": "30px",
-	"border-radius": "8px"
+	"font-size": "2.5rem",
+	"border-radius": "0.5rem"
 };
 
 var input_label = {
     "letter-spacing": "3px",
-    "font-size": "20px",
+    "font-size": "2rem",
     "font-family": "Sans-serif"
 };
 
@@ -59,7 +59,7 @@ class form extends React.Component {
         	password: event.target.value
         });
     }
-    handleEmailChange(event) { 
+    handleEmailChange(event) {
     	this.setState({
     		email: event.target.value
     	});
@@ -80,7 +80,7 @@ class form extends React.Component {
         event.preventDefault();
 	}
 	render() {
-		var style = this.state.hover? input_submit_hover: input_submit; 
+		var style = this.state.hover? input_submit_hover: input_submit;
 		return(
 			<form onSubmit = {this.handleSubmit}>
 			<label style = {input_label}>Email Address: </label> <br />

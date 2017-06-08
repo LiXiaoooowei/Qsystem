@@ -47,14 +47,24 @@ var nextBtn = React.createClass({
 			qserveRef.once("value",function(snapshot){
 				var currServing = snapshot.val();
 				var counter_for_customer = -1;
-				if (currServing < qtotal) {
-				do {
+				if (currServing <= qtotal) {
+					do {
 						currServing += 1;
 						customerRef.child(currServing).once("value", function(snapshot){
-							counter_for_customer = snapshot.val().servedCounter;
+							if (snapshot.exists()){
+								counter_for_customer = snapshot.val().servedCounter;
+							} else {
+								counter_for_customer = null;
+							};
 						});
 						console.log(counter_for_customer);
-					} while(counter_for_customer != -1);
+					} while(counter_for_customer != -1 && counter_for_customer != null);
+					if(counter_for_customer == null) {
+						alert("No more customer to be served!");
+						this.toggleHover();
+						return;
+					}
+					if (counter_for_customer != null) {
 					firebaseRef.update({
 						"Qserving":currServing
 					});
@@ -64,6 +74,7 @@ var nextBtn = React.createClass({
 					userRef.update({
 						"serving": currServing
 					});
+				}
 				}
 			}.bind(this));
 		}.bind(this));

@@ -1,3 +1,4 @@
+import {browserHistory} from 'react-router';
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Firebase = require('./FirebaseClient');
@@ -60,26 +61,35 @@ class form extends React.Component {
     });
   }
   handleSubmit(event) {
-    var number_ = parseInt(this.state.number);
-    var firebaseRef = Firebase.database().ref();
-    var customerRef = firebaseRef.child('Qlist');
-    var qserveRef = firebaseRef.child('Qserving');
-    var qtotalRef = firebaseRef.child('Qtotal');
-    var user = Firebase.auth().currentUser;
-    var userRef = firebaseRef.child('Users').child(user.uid);
-    var counter = null;
-    userRef.once("value", function(snapshot){
-      counter = snapshot.val().counter;
-    });
-    qtotalRef.once("value", function(snapshot){
-      var qtotal = snapshot.val();
-      customerRef.child(number_).update({
-        "servedCounter": counter
+    if (!isNaN(this.state.number)) {
+      alert("You must enter a valid number!");
+    } else {
+      var number_ = parseInt(this.state.number);
+      var firebaseRef = Firebase.database().ref();
+      var customerRef = firebaseRef.child('Qlist');
+      var qserveRef = firebaseRef.child('Qserving');
+      var qtotalRef = firebaseRef.child('Qtotal');
+      var user = Firebase.auth().currentUser;
+      var userRef = firebaseRef.child('Users').child(user.uid);
+      var counter = null;
+      userRef.once("value", function(snapshot){
+        counter = snapshot.val().counter;
       });
-      userRef.update({
-        "serving": number_
+      qtotalRef.once("value", function(snapshot){
+        var qtotal = snapshot.val();
+        if (number_ > qtotal) {
+          alert(number_+" does not exist!");
+          this.toggleHover();
+          return;
+        };
+        customerRef.child(number_).update({
+          "servedCounter": counter
+        });
+        userRef.update({
+          "serving": number_
+        });
       });
-    });
+    }
     event.preventDefault();
   }
   render() {
