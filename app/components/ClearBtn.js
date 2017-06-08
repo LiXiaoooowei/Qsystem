@@ -26,7 +26,8 @@ var clearBtn = React.createClass({
 		var user2Ref = firebaseRef.child('Users').child("fSnr6zLUouVvFTdJMe7lDXT5G8y1");
 		firebaseRef.update({
 			"Qserving": 0,
-			"Qtotal": 0
+			"Qtotal": 0,
+			"baseNumber": 0
 		});
 		user1Ref.update({
 			"serving": 0
