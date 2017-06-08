@@ -5,6 +5,8 @@ var Qserve = require('./components/Qserving.js');
 var NextBtn = require('./components/NextBtn.js');
 var ClearBtn = require('./components/ClearBtn.js');
 var CutQform = require('./components/cutQform');
+var MenuFlatClear = require('./MenuFlatClear');
+var MenuCollapseClear = require('./MenuCollapseClear');
 var Firebase = require('./components/FirebaseClient.js');
 
 var WINDOW_WIDTH_MOBILE = 480;
@@ -157,20 +159,26 @@ export default React.createClass({
 		window.removeEventListener("resize", this.updateDimensions);
 	},
 	render() {
-		return (
-			<div style = {{"width": "100%"}}>
-			<ul role = "nav">
-			<li><Link to="/">Screen</Link></li>
-			<li><Link to="/counter">Counter</Link></li>
-			<li><Link to="/printer">Printer</Link></li>
-			<li style = {{"float": "right"}}><Link to="/logout">Log Out</Link></li>
-			<li style = {{"float": "right"}}><ClearBtn /></li>
-			</ul>
-			<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qServe_large: (this.state.width > WINDOW_WIDTH_MOBILE? qServe_medium: qServe_small)}><Qserve/></div>
-			<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qWait_large: (this.state.width > WINDOW_WIDTH_MOBILE? qWait_medium: qWait_small)}><Qwait qwait = {this.state.qwait} /></div>
-			<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qNextBtn_large: qNextBtn_medium}><NextBtn /></div>
-			<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qCutBtn_large: qCutBtn_medium}><CutQform /></div>
-			</div>
-		)
+		if (this.state.width > WINDOW_WIDTH_MOBILE) {
+			return (
+				<div>
+				<MenuFlatClear />
+				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qServe_large: (this.state.width > WINDOW_WIDTH_MOBILE? qServe_medium: qServe_small)}><Qserve/></div>
+				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qWait_large: (this.state.width > WINDOW_WIDTH_MOBILE? qWait_medium: qWait_small)}><Qwait qwait = {this.state.qwait} /></div>
+				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qNextBtn_large: qNextBtn_medium}><NextBtn /></div>
+				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qCutBtn_large: qCutBtn_medium}><CutQform /></div>
+				</div>
+			);
+		} else {
+			return (
+				<div>
+				<MenuCollapseClear />
+				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qServe_large: (this.state.width > WINDOW_WIDTH_MOBILE? qServe_medium: qServe_small)}><Qserve/></div>
+				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qWait_large: (this.state.width > WINDOW_WIDTH_MOBILE? qWait_medium: qWait_small)}><Qwait qwait = {this.state.qwait} /></div>
+				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qNextBtn_large: qNextBtn_medium}><NextBtn /></div>
+				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qCutBtn_large: qCutBtn_medium}><CutQform /></div>
+				</div>
+			);
+		}
 	}
 })

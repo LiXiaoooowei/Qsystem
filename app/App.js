@@ -4,6 +4,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Qlist = require('./components/Qlist.js');
 var Firebase = require('./components/FirebaseClient.js');
+var MenuFlat = require('./MenuFlat');
+var MenuCollapse = require('./MenuCollapse');
 
 var WINDOW_WIDTH_MOBILE = 480;
 var WINDOW_WIDTH_TABLET_PORTRAIT = 768;
@@ -91,21 +93,29 @@ var App = React.createClass( {
 		window.removeEventListener("resize", this.updateDimensions);
 	},
 	render: function() {
-		return (<div>
-			<ul role = "nav" >
-			<li><Link to="/">Screen</Link></li>
-			<li><Link to="/counter">Counter</Link></li>
-			<li><Link to="/printer">Printer</Link></li>
-			</ul>
-			<div>
-			<iframe src = "https://www.youtube.com/embed/Gj8ec0yehrc?playlist=Gj8ec0yehrc&loop=1" />
-			</div>
-			<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT ? queue_large : queue_medium}>
-			<Qlist queue = {this.state.queue} counter = {this.state.counter}/>
-			</div>
-			</div>
-		);
-
+		if(this.state.width>WINDOW_WIDTH_MOBILE){
+			return (<div>
+				<MenuFlat />
+				<div>
+				<iframe src = "https://www.youtube.com/embed/Gj8ec0yehrc?playlist=Gj8ec0yehrc&loop=1" />
+				</div>
+				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT ? queue_large : queue_medium}>
+				<Qlist queue = {this.state.queue} counter = {this.state.counter}/>
+				</div>
+				</div>
+			);
+		} else {
+			return (<div>
+	     <MenuCollapse />
+				<div>
+				<iframe src = "https://www.youtube.com/embed/Gj8ec0yehrc?playlist=Gj8ec0yehrc&loop=1" />
+				</div>
+				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT ? queue_large : queue_medium}>
+				<Qlist queue = {this.state.queue} counter = {this.state.counter}/>
+				</div>
+				</div>
+			);
+		}
 	}
 });
 

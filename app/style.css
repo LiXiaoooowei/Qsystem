@@ -22,14 +22,6 @@ div {
   }
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding:0;
-  overflow: hidden;
-  width: 100%;
-  background-color: #333;
-}
 li {
   float:left;
 }
@@ -44,4 +36,6 @@ li a {
 
 li a:hover {
   background-color: #111;
+  color: white;
+  text-decoration: none;
 }

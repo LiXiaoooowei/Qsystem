@@ -4,6 +4,7 @@ var React = require('react');
 var firebase = require('./components/FirebaseClient.js');
 var LoginForm = require('./components/login_form');
 var Counter = require('./counter');
+var MenuFlat = require('./MenuFlat');
 
 class login extends React.Component {
 	constructor(props) {
@@ -40,15 +41,11 @@ class login extends React.Component {
 	}
 	render() {
 		return (<div>
-			<ul role = "nav">
-			<li><Link to="/">Screen</Link></li>
-			<li><Link to="/counter">Counter</Link></li>
-			<li><Link to="/printer">Printer</Link></li>
-			</ul>
+			<MenuFlat />
 			<div style = {{"margin-left": "400px", "margin-top": "50px", "margin-right": "400px"}}><LoginForm onChange = {this.changeLoginStatus}/></div>
 			</div>)
 
+		}
 	}
-}
 
-export default login
+	export default login
