@@ -62,7 +62,6 @@ class form extends React.Component {
   }
   handleSubmit(event) {
     if (!(/^\+?(0|[1-9]\d*)$/.test(this.state.number))) {
-      alert(this.state.number);
       alert("You must enter a valid number!");
     } else {
       var number_ = parseInt(this.state.number);
