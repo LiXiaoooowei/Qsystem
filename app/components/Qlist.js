@@ -25,7 +25,7 @@ var Qlist = React.createClass({
 		var i;
 		for(i=1;i<=4;i++) {
 			if(length-i>=0) {
-				counterInfo.unshift("counter 0"+this.props.counter[length-i]);
+				counterInfo.push("counter 0"+this.props.counter[length-i]);
 			}
 		}
 		return(

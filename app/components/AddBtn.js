@@ -57,7 +57,7 @@ var addBtn = React.createClass({
 			});
 			userRef.child(currTotal).set({
 				"queueNumber": currTotal,
-				"servedCounter": -1
+				"servedCounter": "/-1"
 			});
 		});
 	},

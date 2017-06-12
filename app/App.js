@@ -41,13 +41,15 @@ var App = React.createClass( {
 		var counters = this.state.counter;
 		var firebaseRef = Firebase.database().ref();
 		var qlistRef = firebaseRef.child('Qlist');
+		var user1Ref = firebaseRef.child('Users').child("Wo0HpwlrfyXPeU242P4onM9kF8X2");
+		var user2Ref = firebaseRef.child('Users').child("fSnr6zLUouVvFTdJMe7lDXT5G8y1");
 
 		qlistRef.on("child_added", function(snapshot){
 			var Qentry = snapshot.val().queueNumber;
-			var Centry = snapshot.val().servedCounter;
-			if (Centry != -1 ){
+			var Centry = snapshot.val().servedCounter.split("/");
+			if (Centry[Centry.length-1] != -1 ){
 				items.push(Qentry);
-				counters.push(Centry);
+				counters.push(Centry[Centry.length-1]);
 			}
 			this.setState({
 				"queue": items,
@@ -56,11 +58,11 @@ var App = React.createClass( {
 		}.bind(this));
 		qlistRef.on("child_changed", function(snapshot){
 			var Qentry = snapshot.val().queueNumber;
-			var Centry = snapshot.val().servedCounter;
-			if (Centry != -1 && items.indexOf(Qentry) == -1){
+			var Centry = snapshot.val().servedCounter.split("/");
+
 				items.push(Qentry);
-				counters.push(Centry);
-			}
+				counters.push(Centry[Centry.length-1]);
+
 			this.setState({
 				"queue": items,
 				"counter": counters

@@ -51,7 +51,7 @@ var nextBtn = React.createClass({
 			var qtotal = snapshot.val();
 			qserveRef.once("value",function(snapshot){
 				var currServing = snapshot.val();
-				var counter_for_customer = -1;
+				var counter_for_customer = "/-1";
 				if (currServing <= qtotal) {
 					do {
 						currServing += 1;
@@ -63,7 +63,7 @@ var nextBtn = React.createClass({
 							};
 						});
 						console.log(counter_for_customer);
-					} while(counter_for_customer != -1 && counter_for_customer != null);
+					} while(counter_for_customer != "/-1" && counter_for_customer != null);
 					if(counter_for_customer == null) {
 						alert("No more customer to be served!");
 						this.toggleHover();
@@ -74,7 +74,7 @@ var nextBtn = React.createClass({
 						"Qserving":currServing
 					});
 					customerRef.child(currServing).update({
-						"servedCounter": counter
+						"servedCounter": "/"+counter
 					});
 					userRef.update({
 						"serving": currServing

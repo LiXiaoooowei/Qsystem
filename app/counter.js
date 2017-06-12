@@ -115,7 +115,7 @@ export default React.createClass({
 		queueRef.on("child_added", function(snapshot){
 			var Qentry = snapshot.val().queueNumber;
 			var Centry = snapshot.val().servedCounter;
-			if (Centry == -1) {
+			if (Centry == "/-1") {
 				items.push(Qentry);
 			}
 			this.setState({
@@ -126,7 +126,7 @@ export default React.createClass({
 		queueRef.on("child_changed", function(snapshot){
 			var Qentry = snapshot.val().queueNumber;
 			var Centry = snapshot.val().servedCounter;
-			if (Centry != -1 && items.indexOf(Qentry) != -1) {
+			if (Centry != "/-1" && items.indexOf(Qentry) != -1) {
 				items.splice(items.indexOf(Qentry), 1);
 			}
 			this.setState({

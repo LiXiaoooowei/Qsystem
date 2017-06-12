@@ -89,21 +89,26 @@ class form extends React.Component {
           this.toggleHover();
           return;
         };
+
         customerRef.child(number_).once("value", function(snapshot){
           if (snapshot.val().servedCounter != -1 ) {
-            alert("Customer "+number_+ " has already been served!");
+            customerRef.child(number_).update({
+              "servedCounter": snapshot.val().servedCounter+"/"+counter
+            });
             canUpdateQserve = false;
             return;
           }
         });
+
         if(canUpdateQserve) {
           customerRef.child(number_).update({
             "servedCounter": counter
           });
+        }
           userRef.update({
             "serving": number_
           });
-        }
+
       });
     }
     event.preventDefault();
