@@ -1,7 +1,6 @@
-import {Link} from 'react-router';
 
+import YouTube from 'react-youtube';
 var React = require('react');
-var ReactDOM = require('react-dom');
 var Qlist = require('./components/Qlist.js');
 var Firebase = require('./components/FirebaseClient.js');
 var MenuFlat = require('./MenuFlat');
@@ -26,99 +25,133 @@ var queue_medium = {
 	"margin-top": "10%"
 };
 
-var App = React.createClass( {
-	getInitialState: function() {
-		return {
-			queue: new Array(),
-			counter: new Array(),
-			height: null,
-			width: null
-		};
-	},
-	componentWillMount: function() {
-		this.updateDimensions();
-		var items = this.state.queue;
-		var counters = this.state.counter;
-		var firebaseRef = Firebase.database().ref();
-		var qlistRef = firebaseRef.child('Qlist');
-		var user1Ref = firebaseRef.child('Users').child("Wo0HpwlrfyXPeU242P4onM9kF8X2");
-		var user2Ref = firebaseRef.child('Users').child("fSnr6zLUouVvFTdJMe7lDXT5G8y1");
+export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            queue: new Array(),
+            counter: new Array(),
+            urlIndex: 0,
+            urls: new Array(),
+            height: null,
+            width: null,
+            player: null
+        };
 
-		qlistRef.on("child_added", function(snapshot){
-			var Qentry = snapshot.val().queueNumber;
-			var Centry = snapshot.val().servedCounter.split("/");
-			if (Centry[Centry.length-1] != -1 ){
-				items.push(Qentry);
-				counters.push(Centry[Centry.length-1]);
-			}
-			this.setState({
-				"queue": items,
-				"counter": counters
-			});
-		}.bind(this));
-		qlistRef.on("child_changed", function(snapshot){
-			var Qentry = snapshot.val().queueNumber;
-			var Centry = snapshot.val().servedCounter.split("/");
+        this.updateDimensions=this.updateDimensions.bind(this);
+        this.onReadyVideo=this.onReadyVideo.bind(this);
+        this.playNext=this.playNext.bind(this);
+    }
 
-				items.push(Qentry);
-				counters.push(Centry[Centry.length-1]);
+    componentWillMount() {
+        this.updateDimensions();
+        var items = this.state.queue;
+        var counters = this.state.counter;
+        var firebaseRef = Firebase.database().ref();
+        var qlistRef = firebaseRef.child('Qlist');
+        var urlRef = firebaseRef.child('VideoURL');
+        var user1Ref = firebaseRef.child('Users').child("Wo0HpwlrfyXPeU242P4onM9kF8X2");
+        var user2Ref = firebaseRef.child('Users').child("fSnr6zLUouVvFTdJMe7lDXT5G8y1");
 
-			this.setState({
-				"queue": items,
-				"counter": counters
-			});
-		}.bind(this));
-		qlistRef.on("child_removed", function(snapshot){
-			var Qentry = snapshot.val().queueNumber;
-			var Centry = snapshot.val().servedCounter;
-			if (items.indexOf(Qentry) != -1) {
-				items.splice(items.indexOf(Qentry), 1);
-				counters.splice(counters.indexOf(Centry), 1);
-			}
-			this.setState({
-				"queue": items,
-				"counter": counters
-			});
-		}.bind(this));
-	},
-	updateDimensions: function() {
-		this.setState({
-			width: window.innerWidth,
-			height: window.innerHeight
-		});
-	},
-	componentDidMount: function() {
-		window.addEventListener("resize", this.updateDimensions);
-	},
-	componentWillUnmount: function() {
-		Firebase.database().ref("Qlist").off();
-		window.removeEventListener("resize", this.updateDimensions);
-	},
-	render: function() {
-		if(this.state.width>WINDOW_WIDTH_MOBILE){
-			return (<div>
-				<MenuFlat />
-				<div>
-				<iframe src = "https://www.youtube.com/embed/Gj8ec0yehrc?playlist=Gj8ec0yehrc&loop=1" />
-				</div>
-				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT ? queue_large : queue_medium}>
-				<Qlist queue = {this.state.queue} counter = {this.state.counter}/>
-				</div>
-				</div>
-			);
-		} else {
-			return (<div>
-	     <MenuCollapse />
-				<div>
-				<iframe src = "https://www.youtube.com/embed/Gj8ec0yehrc?playlist=Gj8ec0yehrc&loop=1" />
-				</div>
-				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT ? queue_large : queue_medium}>
-				<Qlist queue = {this.state.queue} counter = {this.state.counter}/>
-				</div>
-				</div>
-			);
-		}
-	}
-});
+        qlistRef.on("child_added", function (snapshot) {
+            var Qentry = snapshot.val().queueNumber;
+            var Centry = snapshot.val().servedCounter.split("/");
+            if (Centry[Centry.length - 1] != -1) {
+                items.push(Qentry);
+                counters.push(Centry[Centry.length - 1]);
+            }
+            this.setState({
+                "queue": items,
+                "counter": counters
+            });
+        }.bind(this));
+        qlistRef.on("child_changed", function (snapshot) {
+            var Qentry = snapshot.val().queueNumber;
+            var Centry = snapshot.val().servedCounter.split("/");
 
-module.exports = App
+            items.push(Qentry);
+            counters.push(Centry[Centry.length - 1]);
+
+            this.setState({
+                "queue": items,
+                "counter": counters
+            });
+        }.bind(this));
+        qlistRef.on("child_removed", function (snapshot) {
+            var Qentry = snapshot.val().queueNumber;
+            var Centry = snapshot.val().servedCounter;
+            if (items.indexOf(Qentry) != -1) {
+                items.splice(items.indexOf(Qentry), 1);
+                counters.splice(counters.indexOf(Centry), 1);
+            }
+            this.setState({
+                "queue": items,
+                "counter": counters
+            });
+        }.bind(this));
+        urlRef.on("child_added", function (snapshot) {
+            var url = snapshot.val().url;
+            var urls_ = this.state.urls;
+            urls_.push(url);
+            this.setState({
+                "urls": urls_
+            });
+        }.bind(this));
+    }
+
+    updateDimensions() {
+        this.setState({
+            width: window.innerWidth,
+            height: window.innerHeight
+        });
+    }
+
+    componentDidMount() {
+        window.addEventListener("resize", this.updateDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateDimensions);
+    }
+
+    onReadyVideo(event) {
+        this.setState({
+            player: event.target
+        });
+        this.state.player.playVideo();
+    }
+
+    playNext() {
+        var index = this.state.urlIndex;
+        index = (index+1)%3;
+        this.setState({
+            urlIndex: index
+        });
+    }
+
+    render() {
+        if (this.state.width > WINDOW_WIDTH_MOBILE) {
+            return (<div>
+                    <MenuFlat />
+                    <div>
+                        <YouTube videoId={this.state.urls[this.state.urlIndex]} onEnd={this.playNext} opts={{playerVars: {autoplay: 1}}}/>
+                    </div>
+                    <div style={this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT ? queue_large : queue_medium}>
+                        <Qlist queue={this.state.queue} counter={this.state.counter}/>
+                    </div>
+                </div>
+            );
+        } else {
+            return (<div>
+                    <MenuCollapse />
+                    <div>
+                        <YouTube videoId={this.state.urls[this.state.urlIndex]} onEnd={this.playNext}/>
+                    </div>
+                    <div style={this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT ? queue_large : queue_medium}>
+                        <Qlist queue={this.state.queue} counter={this.state.counter}/>
+                    </div>
+                </div>
+            );
+        }
+    }
+}

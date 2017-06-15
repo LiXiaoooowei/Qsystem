@@ -14380,7 +14380,7 @@ exports.default = React.createClass({
 		queueRef.on("child_added", function (snapshot) {
 			var Qentry = snapshot.val().queueNumber;
 			var Centry = snapshot.val().servedCounter;
-			if (Centry == -1) {
+			if (Centry == "/-1") {
 				items.push(Qentry);
 			}
 			this.setState({
@@ -14391,7 +14391,7 @@ exports.default = React.createClass({
 		queueRef.on("child_changed", function (snapshot) {
 			var Qentry = snapshot.val().queueNumber;
 			var Centry = snapshot.val().servedCounter;
-			if (Centry != -1 && items.indexOf(Qentry) != -1) {
+			if (Centry != "/-1" && items.indexOf(Qentry) != -1) {
 				items.splice(items.indexOf(Qentry), 1);
 			}
 			this.setState({
@@ -14671,7 +14671,7 @@ var Qlist = React.createClass({
 		var i;
 		for (i = 1; i <= 4; i++) {
 			if (length - i >= 0) {
-				counterInfo.unshift("counter 0" + this.props.counter[length - i]);
+				counterInfo.push("counter 0" + this.props.counter[length - i]);
 			}
 		}
 		return React.createElement(
@@ -25437,13 +25437,15 @@ var App = React.createClass({
 		var counters = this.state.counter;
 		var firebaseRef = Firebase.database().ref();
 		var qlistRef = firebaseRef.child('Qlist');
+		var user1Ref = firebaseRef.child('Users').child("Wo0HpwlrfyXPeU242P4onM9kF8X2");
+		var user2Ref = firebaseRef.child('Users').child("fSnr6zLUouVvFTdJMe7lDXT5G8y1");
 
 		qlistRef.on("child_added", function (snapshot) {
 			var Qentry = snapshot.val().queueNumber;
-			var Centry = snapshot.val().servedCounter;
-			if (Centry != -1) {
+			var Centry = snapshot.val().servedCounter.split("/");
+			if (Centry[Centry.length - 1] != -1) {
 				items.push(Qentry);
-				counters.push(Centry);
+				counters.push(Centry[Centry.length - 1]);
 			}
 			this.setState({
 				"queue": items,
@@ -25452,11 +25454,11 @@ var App = React.createClass({
 		}.bind(this));
 		qlistRef.on("child_changed", function (snapshot) {
 			var Qentry = snapshot.val().queueNumber;
-			var Centry = snapshot.val().servedCounter;
-			if (Centry != -1 && items.indexOf(Qentry) == -1) {
-				items.push(Qentry);
-				counters.push(Centry);
-			}
+			var Centry = snapshot.val().servedCounter.split("/");
+
+			items.push(Qentry);
+			counters.push(Centry[Centry.length - 1]);
+
 			this.setState({
 				"queue": items,
 				"counter": counters
@@ -26019,7 +26021,7 @@ var addBtn = React.createClass({
 			});
 			userRef.child(currTotal).set({
 				"queueNumber": currTotal,
-				"servedCounter": -1
+				"servedCounter": "/-1"
 			});
 		});
 	},
@@ -26102,7 +26104,7 @@ var nextBtn = React.createClass({
 			var qtotal = snapshot.val();
 			qserveRef.once("value", function (snapshot) {
 				var currServing = snapshot.val();
-				var counter_for_customer = -1;
+				var counter_for_customer = "/-1";
 				if (currServing <= qtotal) {
 					do {
 						currServing += 1;
@@ -26114,7 +26116,7 @@ var nextBtn = React.createClass({
 							};
 						});
 						console.log(counter_for_customer);
-					} while (counter_for_customer != -1 && counter_for_customer != null);
+					} while (counter_for_customer != "/-1" && counter_for_customer != null);
 					if (counter_for_customer == null) {
 						alert("No more customer to be served!");
 						this.toggleHover();
@@ -26125,7 +26127,7 @@ var nextBtn = React.createClass({
 							"Qserving": currServing
 						});
 						customerRef.child(currServing).update({
-							"servedCounter": counter
+							"servedCounter": "/" + counter
 						});
 						userRef.update({
 							"serving": currServing
@@ -26586,21 +26588,25 @@ var form = function (_React$Component) {
             this.toggleHover();
             return;
           };
+
           customerRef.child(number_).once("value", function (snapshot) {
             if (snapshot.val().servedCounter != -1) {
-              alert("Customer " + number_ + " has already been served!");
+              customerRef.child(number_).update({
+                "servedCounter": snapshot.val().servedCounter + "/" + counter
+              });
               canUpdateQserve = false;
               return;
             }
           });
+
           if (canUpdateQserve) {
             customerRef.child(number_).update({
               "servedCounter": counter
             });
-            userRef.update({
-              "serving": number_
-            });
           }
+          userRef.update({
+            "serving": number_
+          });
         });
       }
       event.preventDefault();

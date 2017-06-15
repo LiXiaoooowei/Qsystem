@@ -27,7 +27,7 @@ var Home = React.createClass({
 				});
 			}
 		}.bind(this));
-	},
+    },
 	shouldComponentUpdate: function() {
 		return this.state.isLoggedIn;
 	},
