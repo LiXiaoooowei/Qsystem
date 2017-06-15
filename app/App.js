@@ -35,12 +35,16 @@ export default class App extends React.Component {
             urls: new Array(),
             height: null,
             width: null,
-            player: null
+            player: null,
+            hour: null
         };
 
         this.updateDimensions=this.updateDimensions.bind(this);
         this.onReadyVideo=this.onReadyVideo.bind(this);
         this.playNext=this.playNext.bind(this);
+        this.clearAllEntries=this.clearAllEntries.bind(this);
+        this.setCurrentHour=this.setCurrentHour.bind(this);
+        this.getCurrentHour=this.getCurrentHour.bind(this);
     }
 
     componentWillMount() {
@@ -105,13 +109,49 @@ export default class App extends React.Component {
             height: window.innerHeight
         });
     }
+    getCurrentHour() {
+        var date = new Date();
+        return date.getHours();
+    }
+    setCurrentHour() {
+        var hour_=this.getCurrentHour();
+        this.setState({
+            hour: hour_
+        });
+        if(this.state.hour < 6) {
+            this.clearAllEntries();
+        }
+    }
+    clearAllEntries() {
+        var firebaseRef = Firebase.database().ref();
+        var qlistRef = firebaseRef.child('Qlist');
+        var user1Ref = firebaseRef.child('Users').child("Wo0HpwlrfyXPeU242P4onM9kF8X2");
+        var user2Ref = firebaseRef.child('Users').child("fSnr6zLUouVvFTdJMe7lDXT5G8y1");
+        firebaseRef.update({
+            "Qserving": 0,
+            "Qtotal": 0,
+            "baseNumber": 0
+        });
+        user1Ref.update({
+            "serving": 0
+        });
+        user2Ref.update({
+            "serving": 0
+        });
+        qlistRef.remove();
+    }
 
     componentDidMount() {
         window.addEventListener("resize", this.updateDimensions);
+        var interval = setInterval(this.setCurrentHour,3600000);
+        this.setState({
+            intervalID: interval
+        });
     }
 
     componentWillUnmount() {
         window.removeEventListener("resize", this.updateDimensions);
+        clearInterval(this.state.intervalID);
     }
 
     onReadyVideo(event) {
