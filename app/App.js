@@ -54,8 +54,6 @@ export default class App extends React.Component {
         var firebaseRef = Firebase.database().ref();
         var qlistRef = firebaseRef.child('Qlist');
         var urlRef = firebaseRef.child('VideoURL');
-        var user1Ref = firebaseRef.child('Users').child("Wo0HpwlrfyXPeU242P4onM9kF8X2");
-        var user2Ref = firebaseRef.child('Users').child("fSnr6zLUouVvFTdJMe7lDXT5G8y1");
 
         qlistRef.on("child_added", function (snapshot) {
             var Qentry = snapshot.val().queueNumber;

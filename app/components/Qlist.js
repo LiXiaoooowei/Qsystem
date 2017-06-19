@@ -21,26 +21,49 @@ var entryStyle_blink = {
     "border-collapse": "collapse",
     "padding": "2rem 4rem 0rem 4rem",
     "font-size": "5rem",
-    "background-color": "red"
+    "background-color": "red",
+	"color": 'white'
 };
 
 var Qlist = React.createClass({
     getInitialState: function() {
         return {
-            blinking: false
+            blinking: false,
+            displayName: new Array()
         }
     },
     componentWillMount: function() {
         var firebaseRef = Firebase.database().ref();
+        var user2Ref = firebaseRef.child('Users').child("Wo0HpwlrfyXPeU242P4onM9kF8X2");
+        var user1Ref = firebaseRef.child('Users').child("fSnr6zLUouVvFTdJMe7lDXT5G8y1");
         var qlistRef = firebaseRef.child('Qlist');
+
         qlistRef.on("child_changed", function (snapshot) {
             this.toggleBgForFixedPeriod();
         }.bind(this));
+
+        user1Ref.once("value", function(snapshot){
+            var name = snapshot.val().displayName;
+            var arr = this.state.displayName;
+            arr.splice(0,0,name);
+            this.setState({
+                displayName: arr
+            })
+        }.bind(this))
+        user2Ref.once("value", function(snapshot){
+            var name = snapshot.val().displayName;
+            var arr = this.state.displayName;
+            arr.splice(1,0,name);
+            this.setState({
+                displayName: arr
+            })
+        }.bind(this))
+
     },
     toggleBgForFixedPeriod: function() {
         this.toggleBgColor();
         setTimeout(()=>{this.setState({blinking: false});
-            clearInterval(this.state.intervalID)}, 10000);
+            clearInterval(this.state.intervalID)}, 15000);
     },
     toggleBgColor: function() {
         var interval = setInterval(() => {var blink=!this.state.blinking;
@@ -58,7 +81,7 @@ var Qlist = React.createClass({
 		var i;
 		for(i=1;i<=4;i++) {
 			if(length-i>=0) {
-				counterInfo.push("counter 0"+this.props.counter[length-i]);
+				counterInfo.push(this.state.displayName[this.props.counter[length-i]-1]);
 			}
 		}
 		return(

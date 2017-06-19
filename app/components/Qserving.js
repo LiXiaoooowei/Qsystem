@@ -40,7 +40,7 @@ var Qserve = React.createClass({
 		var counterNum = null;
 		var counterServing = null;
 		counterRef.on("value", function(snapshot){
-			counterNum = snapshot.val().counter;
+			counterNum = snapshot.val().displayName;
 			counterServing = snapshot.val().serving;
 			this.setState({
 				counter: counterNum,
