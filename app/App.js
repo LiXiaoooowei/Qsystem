@@ -70,7 +70,7 @@ export default class App extends React.Component {
         qlistRef.on("child_changed", function (snapshot) {
             var Qentry = snapshot.val().queueNumber;
             var Centry = snapshot.val().servedCounter.split("/");
-
+            document.getElementById('audio').play();
             items.push(Qentry);
             counters.push(Centry[Centry.length - 1]);
 
