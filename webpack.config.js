@@ -14,7 +14,14 @@ module.exports = {
 			test: /\.js$/,
 		    exclude: /node_modules/,
 		    loader: 'babel-loader'
-		}
+		},
+			{
+                test: /\.(?:png|jpg|svg)$/,
+                loader: 'url-loader',
+				query: {
+                	limit: 10000
+				}
+            }
 		]
 	},
 	output: {

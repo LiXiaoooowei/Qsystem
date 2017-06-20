@@ -1,5 +1,5 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
+var PplLeftLabel = require('./PplWaitLabel');
 
 var headerStyle = {
 	"border": "1px solid black",
@@ -34,6 +34,9 @@ var Qwait = React.createClass({
 			<tr>
 			<th style = {thStyle}>Queueing</th>
 			</tr>
+                <tr style = {entryStyle}>
+					<PplLeftLabel />
+				</tr>
 			<tr>
 			<td style = {entryStyle}>{this.props.qwait[0]}</td>
 			</tr>
