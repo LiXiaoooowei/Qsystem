@@ -36,7 +36,8 @@ var input_submit_hover = {
 
 var input_label = {
   "font-size": "1.5rem",
-  "font-family": "Sans-serif"
+  "font-family": "Sans-serif",
+    "color": "#E1B873"
 };
 
 class form extends React.Component {

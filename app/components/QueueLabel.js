@@ -33,9 +33,9 @@ var QueueLabel = React.createClass({
 	},
 	render: function() {
 		if (this.state.Qnum == 0) {
-			return <h1> Welcome! </h1>
+			return <h1 style = {{color: '#E1B873'}}> WELCOME TO SLIDE </h1>
 		} else {
-        return <h1> Your Queue Number is {this.state.Qnum}</h1>;
+        return <h1 style = {{color: '#E1B873'}}> Your Queue Number is {this.state.Qnum}</h1>;
         }
 	}
 });

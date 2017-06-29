@@ -3,21 +3,22 @@ var ReactDOM = require('react-dom');
 var Firebase = require('./FirebaseClient.js');
 
 var headerStyle = {
-	"border": "1px solid black",
+	"border": "1px solid lightgray",
 	"width": "100%",
 	"border-collapse": "collapse",
 	"text-align": "center",
 	"padding": "1rem"
 };
 var entryStyle = {
-	"border": "1px solid black",
+	"border": "1px solid lightgray",
 	"border-collapse": "collapse",
 	"padding": "1rem",
-	"font-size": "1.5rem"
+	"font-size": "1.5rem",
+	"color": "#E1B873"
 };
 
 var thStyle = {
-	"border": "1px solid black",
+	"border": "1px solid darkgray",
 	"border-collapse": "collapse",
 	"padding": "1rem",
 	"background-color": "#ddd",

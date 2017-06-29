@@ -1,5 +1,9 @@
 div {
   width: 100%;
+    background-color: #233b56;
+}
+body {
+    background-color: #233b56;
 }
 
 @media only screen and (max-width: 768px) {
@@ -13,7 +17,7 @@ div {
 }
 @media only screen and (min-width: 768px) {
   iframe {
-    height: 500px;
+    height: 540px;
     width: 70%;
     margin-right: 0;
     margin-left: 0;

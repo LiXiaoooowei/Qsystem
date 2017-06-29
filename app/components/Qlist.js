@@ -1,35 +1,40 @@
+import renderIf from './renderif'
 var React = require('react');
 var Firebase = require('./FirebaseClient.js');
+
 
 var headerStyle_large = {
 	"border": "1px solid black",
 	"border-collapse": "collapse",
 	"width": "100%",
-	"text-align": "center",
 	"padding": "1rem",
 	"float": "right",
-	"min-height": "500px"
+	"min-height": "700px"
 };
 var entryStyle = {
 	"border": "1px solid black",
 	"border-collapse": "collapse",
-	"padding": "2rem 4rem 0rem 4rem",
-	"font-size": "5rem"
+	"padding": "0rem 2rem 0rem 2rem",
 };
-var entryStyle_blink = {
-    "border": "1px solid black",
-    "border-collapse": "collapse",
-    "padding": "2rem 4rem 0rem 4rem",
-    "font-size": "5rem",
-    "background-color": "red",
-	"color": 'white'
-};
+
+var Q_normal = {
+    "color": "#E1B873",
+    "textAlign": "center",
+    "font-size": "7rem"
+}
+var Q_blinking = {
+    "color": "red",
+    "textAlign": "center",
+    "font-size": "7rem"
+}
 
 var Qlist = React.createClass({
     getInitialState: function() {
         return {
             blinking: false,
-            displayName: new Array()
+            displayName: new Array(),
+            width: null,
+            height: null
         }
     },
     componentWillMount: function() {
@@ -74,6 +79,16 @@ var Qlist = React.createClass({
     },
     componentWillUnmount: function() {
         clearInterval(this.state.intervalID);
+            window.removeEventListener("resize", this.updateDimensions);
+    },
+    updateDimensions: function() {
+        this.setState({
+            width: window.innerWidth,
+            height: window.innerHeight
+        });
+    },
+    componengDidMount: function() {
+        window.addEventListener("resize", this.updateDimensions);
     },
 	render: function() {
 		var length = this.props.queue.length;
@@ -87,20 +102,41 @@ var Qlist = React.createClass({
 		return(
 			<table style={headerStyle_large}>
 			<tr>
-			<td style = {this.state.blinking?entryStyle_blink: entryStyle}>{this.props.queue[length-1]}
-			<br /> <h6>{counterInfo[0]}</h6></td>
+			<td style = {entryStyle}>
+                {renderIf(length>=1)(
+                    <h3 style = {{"color": "white", textAlign: 'left'}}>Queue No.</h3>
+                )}
+                <br />
+                <h1 style = {this.state.blinking? Q_blinking: Q_normal}>{this.props.queue[length-1]}</h1>
+			<br /> <h3 style = {{"color": "white",textAlign: 'right'}}>{counterInfo[0]}</h3></td>
 			</tr>
 			<tr>
-			<td style = {entryStyle}>{this.props.queue[length-2]}
-			<br /> <h6>{counterInfo[1]}</h6></td>
+			<td style = {entryStyle}>
+                {renderIf(length>=2)(
+                    <h3 style = {{"color": "white", textAlign: 'left'}}>Queue No.</h3>
+                )}
+                <br />
+                <h1 style = {Q_normal}> {this.props.queue[length-2]}</h1>
+			<br /> <h3 style = {{"color": "white", textAlign: 'right'}}>{counterInfo[1]}</h3></td>
 			</tr>
 			<tr>
-			<td style = {entryStyle}>{this.props.queue[length-3]}
-			<br /> <h6>{counterInfo[2]}</h6></td>
+			<td style = {entryStyle}>
+                {renderIf(length>=3)(
+                    <h3 style = {{"color": "white", textAlign: 'left'}}>Queue No.</h3>
+                )}
+                <br />
+                <h1 style = {Q_normal}>{this.props.queue[length-3]}</h1>
+			<br /> <h3 style = {{"color": "white",textAlign: 'right'}}>{counterInfo[2]}</h3>
+            </td>
 			</tr>
 			<tr>
-			<td style = {entryStyle}>{this.props.queue[length-4]}
-			<br /> <h6>{counterInfo[3]}</h6></td>
+			<td style = {entryStyle}>
+                {renderIf(length>=4)(
+                    <h3 style = {{"color": "white", textAlign: 'left'}}>Queue No.</h3>
+                )}
+                <br />
+                <h1 style = {Q_normal}>{this.props.queue[length-4]}</h1>
+			<br /> <h3 style = {{"color": "white",textAlign: 'right'}}>{counterInfo[3]}</h3></td>
 			</tr>
 			</table>
 			);
