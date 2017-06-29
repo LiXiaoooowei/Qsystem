@@ -2,6 +2,7 @@ import renderIf from './renderif'
 var React = require('react');
 var Firebase = require('./FirebaseClient.js');
 
+var SCREEN_HEIGHT = 768
 
 var headerStyle_large = {
 	"border": "1px solid black",
@@ -9,7 +10,7 @@ var headerStyle_large = {
 	"width": "100%",
 	"padding": "1rem",
 	"float": "right",
-	"min-height": "700px"
+    "height": SCREEN_HEIGHT
 };
 var entryStyle = {
 	"border": "1px solid black",
@@ -20,12 +21,12 @@ var entryStyle = {
 var Q_normal = {
     "color": "#E1B873",
     "textAlign": "center",
-    "font-size": "7rem"
+    "font-size": "6.5rem"
 }
 var Q_blinking = {
     "color": "red",
     "textAlign": "center",
-    "font-size": "7rem"
+    "font-size": "6.5rem"
 }
 
 var Qlist = React.createClass({
@@ -39,8 +40,8 @@ var Qlist = React.createClass({
     },
     componentWillMount: function() {
         var firebaseRef = Firebase.database().ref();
-        var user2Ref = firebaseRef.child('Users').child("Wo0HpwlrfyXPeU242P4onM9kF8X2");
-        var user1Ref = firebaseRef.child('Users').child("fSnr6zLUouVvFTdJMe7lDXT5G8y1");
+        var user1Ref = firebaseRef.child('Users').child("Wo0HpwlrfyXPeU242P4onM9kF8X2");
+        var user2Ref = firebaseRef.child('Users').child("fSnr6zLUouVvFTdJMe7lDXT5G8y1");
         var qlistRef = firebaseRef.child('Qlist');
 
         qlistRef.on("child_changed", function (snapshot) {
@@ -79,15 +80,16 @@ var Qlist = React.createClass({
     },
     componentWillUnmount: function() {
         clearInterval(this.state.intervalID);
-            window.removeEventListener("resize", this.updateDimensions);
+        window.removeEventListener("resize", this.updateDimensions);
     },
     updateDimensions: function() {
         this.setState({
             width: window.innerWidth,
             height: window.innerHeight
         });
-    },
+    }.bind(this),
     componengDidMount: function() {
+        this.updateDimensions()
         window.addEventListener("resize", this.updateDimensions);
     },
 	render: function() {
@@ -106,27 +108,24 @@ var Qlist = React.createClass({
                 {renderIf(length>=1)(
                     <h3 style = {{"color": "white", textAlign: 'left'}}>Queue No.</h3>
                 )}
-                <br />
                 <h1 style = {this.state.blinking? Q_blinking: Q_normal}>{this.props.queue[length-1]}</h1>
-			<br /> <h3 style = {{"color": "white",textAlign: 'right'}}>{counterInfo[0]}</h3></td>
+	            <h3 style = {{"color": "white",textAlign: 'right'}}>{counterInfo[0]}</h3></td>
 			</tr>
 			<tr>
 			<td style = {entryStyle}>
                 {renderIf(length>=2)(
                     <h3 style = {{"color": "white", textAlign: 'left'}}>Queue No.</h3>
                 )}
-                <br />
                 <h1 style = {Q_normal}> {this.props.queue[length-2]}</h1>
-			<br /> <h3 style = {{"color": "white", textAlign: 'right'}}>{counterInfo[1]}</h3></td>
+		   <h3 style = {{"color": "white", textAlign: 'right'}}>{counterInfo[1]}</h3></td>
 			</tr>
 			<tr>
 			<td style = {entryStyle}>
                 {renderIf(length>=3)(
                     <h3 style = {{"color": "white", textAlign: 'left'}}>Queue No.</h3>
                 )}
-                <br />
                 <h1 style = {Q_normal}>{this.props.queue[length-3]}</h1>
-			<br /> <h3 style = {{"color": "white",textAlign: 'right'}}>{counterInfo[2]}</h3>
+			    <h3 style = {{"color": "white",textAlign: 'right'}}>{counterInfo[2]}</h3>
             </td>
 			</tr>
 			<tr>
@@ -134,9 +133,8 @@ var Qlist = React.createClass({
                 {renderIf(length>=4)(
                     <h3 style = {{"color": "white", textAlign: 'left'}}>Queue No.</h3>
                 )}
-                <br />
                 <h1 style = {Q_normal}>{this.props.queue[length-4]}</h1>
-			<br /> <h3 style = {{"color": "white",textAlign: 'right'}}>{counterInfo[3]}</h3></td>
+		        <h3 style = {{"color": "white",textAlign: 'right'}}>{counterInfo[3]}</h3></td>
 			</tr>
 			</table>
 			);

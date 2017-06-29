@@ -5,11 +5,13 @@ var Qlist = require('./components/Qlist.js');
 var Firebase = require('./components/FirebaseClient.js');
 var MenuFlat = require('./MenuFlat');
 var MenuCollapse = require('./MenuCollapse');
+var Rates = require('./components/Rates');
 
 var WINDOW_WIDTH_MOBILE = 480;
 var WINDOW_WIDTH_TABLET_PORTRAIT = 768;
 var WINDOW_WIDTH_TABLET_LANDSCAPE = 1024;
 var WINDOW_WIDTH_LAPTOP = 1600;
+var WINDOW_HEIGHT = 768
 
 var queue_large = {
 	"width": "30%",
@@ -23,6 +25,12 @@ var queue_medium = {
 	"float": "left",
 	"margin-left": "10%",
 	"margin-top": "10%"
+};
+
+var rate_large = {
+    "width": "70%",
+    "float": "left",
+    "margin-top": 540 - WINDOW_HEIGHT
 };
 
 export default class App extends React.Component {
@@ -176,6 +184,9 @@ export default class App extends React.Component {
                     </div>
                     <div style={this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT ? queue_large : queue_medium}>
                         <Qlist queue={this.state.queue} counter={this.state.counter}/>
+                    </div>
+                    <div style = {rate_large}>
+                        <Rates/>
                     </div>
                 </div>
             );
