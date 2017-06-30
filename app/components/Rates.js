@@ -1,4 +1,3 @@
-import renderIf from './renderif';
 import imgP from '../images/icn_philippine.png';
 import imgI from '../images/icn_indonesia.png';
 var React = require('react');
@@ -24,7 +23,9 @@ var Rates = React.createClass({
             mm: MONTH_IN_YEAR[(new Date()).getMonth()],
             yyyy: (new Date()).getFullYear(),
             hh: (new Date()).getHours(),
-            min: (new Date()).getMinutes()
+            min: (new Date()).getMinutes(),
+            indonesia: 0,
+            philippine: 0
         }
     },
     componentWillMount: function () {
@@ -34,7 +35,28 @@ var Rates = React.createClass({
                 min: (new Date()).getMinutes(),
             })
         }, 1000);
-
+        var indonesiaRates = Firebase.database().ref().child('Ex_Indonesia');
+        var philippineRates = Firebase.database().ref().child('Ex_Philippine');
+        indonesiaRates.on('child_changed', function(snapshot){
+            this.setState({
+                indonesia: snapshot.val()
+            })
+        }.bind(this))
+        philippineRates.on('child_changed', function(snapshot){
+            this.setState({
+                philippine: snapshot.val()
+            })
+        }.bind(this))
+        indonesiaRates.on('child_added', function(snapshot){
+            this.setState({
+                indonesia: snapshot.val()
+            })
+        }.bind(this))
+        philippineRates.on('child_added', function(snapshot){
+            this.setState({
+                philippine: snapshot.val()
+            })
+        }.bind(this))
     },
     componentWillUnmount: function () {
         clearInterval(this.state.intervalID);
@@ -75,10 +97,10 @@ var Rates = React.createClass({
                     <img src={imgI} alt=""
                          style={{width: "10%", marginRight: '0%', marginLeft: '15%'}}></img>
                     <div style={{width: '20%', display: 'inline-block', marginTop: '5%'}}><h3
-                        style={{color: 'white', textAlign: 'center'}}>rate</h3></div>
+                        style={{color: 'white', textAlign: 'center'}}>{this.state.indonesia}</h3></div>
                     <img src={imgP} alt="" style={{display: 'inline-block', width: "10%", marginLeft: '10%'}}></img>
                     <div style={{width: '20%',display: 'inline-block', marginRight: '15%'}}><h3
-                        style={{color: 'white', textAlign: 'center'}}>rate</h3></div>
+                        style={{color: 'white', textAlign: 'center'}}>{this.state.philippine}</h3></div>
                 </span>
             </div>
         );

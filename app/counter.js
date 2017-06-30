@@ -8,6 +8,8 @@ var CutQform = require('./components/cutQform');
 var MenuFlatClear = require('./MenuFlatClear');
 var MenuCollapseClear = require('./MenuCollapseClear');
 var Firebase = require('./components/FirebaseClient.js');
+var Indonesia = require('./components/Ex_indonesia');
+var Philippine = require('./components/Ex_philippine');
 
 var WINDOW_WIDTH_MOBILE = 480;
 var WINDOW_WIDTH_TABLET_PORTRAIT = 768;
@@ -167,6 +169,8 @@ export default React.createClass({
 				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qWait_large: (this.state.width > WINDOW_WIDTH_MOBILE? qWait_medium: qWait_small)}><Qwait qwait = {this.state.qwait} /></div>
 				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qNextBtn_large: qNextBtn_medium}><NextBtn /></div>
 				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qCutBtn_large: qCutBtn_medium}><CutQform /></div>
+                    <div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qCutBtn_large: qCutBtn_medium}><Indonesia/></div>
+                    <div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qCutBtn_large: qCutBtn_medium}><Philippine/></div>
 				</div>
 			);
 		} else {
@@ -177,6 +181,8 @@ export default React.createClass({
 				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qWait_large: (this.state.width > WINDOW_WIDTH_MOBILE? qWait_medium: qWait_small)}><Qwait qwait = {this.state.qwait} /></div>
 				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qNextBtn_large: qNextBtn_medium}><NextBtn /></div>
 				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qCutBtn_large: qCutBtn_medium}><CutQform /></div>
+                    <div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qCutBtn_large: qCutBtn_medium}><Indonesia/></div>
+                    <div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qCutBtn_large: qCutBtn_medium}><Philippine/></div>
 				</div>
 			);
 		}
