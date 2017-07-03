@@ -168,9 +168,11 @@ export default class App extends React.Component {
         this.state.player.playVideo();
     }
 
-    playNext() {
+    playNext(event) {
+        this.state.player.seekTo(-1);
         var index = this.state.urlIndex;
         index = (index+1)%3;
+        console.log(index);
         this.setState({
             urlIndex: index
         });
@@ -181,7 +183,7 @@ export default class App extends React.Component {
             return (<div>
                     <MenuFlat />
                     <div style = {iframe}>
-                        <YouTube videoId={this.state.urls[this.state.urlIndex]} onEnd={this.playNext} opts={{playerVars: {autoplay: 1},height: '540px', width: '100%'}}/>
+                        <YouTube videoId={this.state.urls[this.state.urlIndex]} onReady = {this.onReadyVideo} onEnd = {this.playNext} opts={{playerVars: {autoplay: 1},height: '540px', width: '100%'}}/>
                     </div>
                     <div style={this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT ? queue_large : queue_medium}>
                         <Qlist queue={this.state.queue} counter={this.state.counter}/>

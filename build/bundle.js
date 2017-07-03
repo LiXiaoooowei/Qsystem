@@ -26493,9 +26493,11 @@ var App = function (_React$Component) {
         }
     }, {
         key: 'playNext',
-        value: function playNext() {
+        value: function playNext(event) {
+            this.state.player.seekTo(-1);
             var index = this.state.urlIndex;
             index = (index + 1) % 3;
+            console.log(index);
             this.setState({
                 urlIndex: index
             });
@@ -26511,7 +26513,7 @@ var App = function (_React$Component) {
                     React.createElement(
                         'div',
                         { style: iframe },
-                        React.createElement(_reactYoutube2.default, { videoId: this.state.urls[this.state.urlIndex], onEnd: this.playNext, opts: { playerVars: { autoplay: 1 }, height: '540px', width: '100%' } })
+                        React.createElement(_reactYoutube2.default, { videoId: this.state.urls[this.state.urlIndex], onReady: this.onReadyVideo, onEnd: this.playNext, opts: { playerVars: { autoplay: 1 }, height: '540px', width: '100%' } })
                     ),
                     React.createElement(
                         'div',
