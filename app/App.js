@@ -11,8 +11,16 @@ var WINDOW_WIDTH_MOBILE = 480;
 var WINDOW_WIDTH_TABLET_PORTRAIT = 768;
 var WINDOW_WIDTH_TABLET_LANDSCAPE = 1024;
 var WINDOW_WIDTH_LAPTOP = 1600;
-var WINDOW_HEIGHT = 768
+var WINDOW_HEIGHT = 768;
 
+var iframe = {
+    "height": "540px",
+    "width": "70%",
+    "margin-right": 0,
+    "margin-left": 0,
+    "margin-top":0,
+    "float": "left"
+};
 var queue_large = {
 	"width": "30%",
 	"float": "left",
@@ -108,7 +116,18 @@ export default class App extends React.Component {
             });
         }.bind(this));
     }
+    clearAllEntries() {
+        var firebaseRef = Firebase.database().ref();
+        var qlistRef = firebaseRef.child('Qlist');
 
+        firebaseRef.update({
+            "Qserving": 0,
+            "Qtotal": 0,
+            "baseNumber": 0
+        });
+
+        qlistRef.remove();
+    }
     updateDimensions() {
         this.setState({
             width: window.innerWidth,
@@ -127,24 +146,6 @@ export default class App extends React.Component {
         if(this.state.hour < 6) {
             this.clearAllEntries();
         }
-    }
-    clearAllEntries() {
-        var firebaseRef = Firebase.database().ref();
-        var qlistRef = firebaseRef.child('Qlist');
-        var user1Ref = firebaseRef.child('Users').child("Wo0HpwlrfyXPeU242P4onM9kF8X2");
-        var user2Ref = firebaseRef.child('Users').child("fSnr6zLUouVvFTdJMe7lDXT5G8y1");
-        firebaseRef.update({
-            "Qserving": 0,
-            "Qtotal": 0,
-            "baseNumber": 0
-        });
-        user1Ref.update({
-            "serving": 0
-        });
-        user2Ref.update({
-            "serving": 0
-        });
-        qlistRef.remove();
     }
 
     componentDidMount() {
@@ -179,8 +180,8 @@ export default class App extends React.Component {
         if (this.state.width > WINDOW_WIDTH_MOBILE) {
             return (<div>
                     <MenuFlat />
-                    <div>
-                        <YouTube videoId={this.state.urls[this.state.urlIndex]} onEnd={this.playNext} opts={{playerVars: {autoplay: 1}}}/>
+                    <div style = {iframe}>
+                        <YouTube videoId={this.state.urls[this.state.urlIndex]} onEnd={this.playNext} opts={{playerVars: {autoplay: 1},height: '540px', width: '100%'}}/>
                     </div>
                     <div style={this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT ? queue_large : queue_medium}>
                         <Qlist queue={this.state.queue} counter={this.state.counter}/>

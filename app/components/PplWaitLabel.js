@@ -43,7 +43,7 @@ class PplWaitLabel extends React.Component {
     render() {
         return(
             <div style = {{padding: '1rem'}}>
-                <img src={img} alt = "" style = {{display: 'inline-block', width: "10%", marginRight: '10%'}}></img>
+                <img src={img} style = {{display: 'inline-block', width: "10%", marginRight: '10%'}} />
                 <h4 style = {{textAlign: "center", display: 'inline'}}>{this.state.customer_left} in queue</h4>
             </div>
         );

@@ -81,7 +81,7 @@ class form extends React.Component {
         baseNum = snapshot.val();
       });
       userRef.once("value", function(snapshot){
-        counter = snapshot.val().counter;
+        counter = snapshot.val().displayName;
       });
       qtotalRef.once("value", function(snapshot){
         var qtotal = snapshot.val();

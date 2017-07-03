@@ -45,7 +45,8 @@ var nextBtn = React.createClass({
 			baseNum = snapshot.val();
 		});
 		userRef.once("value", function(snapshot){
-			counter = snapshot.val().counter;
+			counter = snapshot.val().displayName;
+			console.log(counter);
 		});
 		qtotalRef.once("value", function(snapshot){
 			var qtotal = snapshot.val();
