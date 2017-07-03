@@ -11,10 +11,10 @@ var WINDOW_WIDTH_MOBILE = 480;
 var WINDOW_WIDTH_TABLET_PORTRAIT = 768;
 var WINDOW_WIDTH_TABLET_LANDSCAPE = 1024;
 var WINDOW_WIDTH_LAPTOP = 1600;
-var WINDOW_HEIGHT = 768;
+var WINDOW_HEIGHT = 540;
 
 var iframe = {
-    "height": "540px",
+    "height": WINDOW_HEIGHT,
     "width": "70%",
     "margin-right": 0,
     "margin-left": 0,
@@ -179,14 +179,16 @@ export default class App extends React.Component {
     }
 
     render() {
+        iframe["height"] = this.state.width*0.7/1.77;
+        rate_large["margin-top"] = iframe["height"] - this.state.height;
         if (this.state.width > WINDOW_WIDTH_MOBILE) {
             return (<div>
                     <MenuFlat />
                     <div style = {iframe}>
-                        <YouTube videoId={this.state.urls[this.state.urlIndex]} onReady = {this.onReadyVideo} onEnd = {this.playNext} opts={{playerVars: {autoplay: 1},height: '540px', width: '100%'}}/>
+                        <YouTube videoId={this.state.urls[this.state.urlIndex]} onReady = {this.onReadyVideo} onEnd = {this.playNext} opts={{playerVars: {autoplay: 1},height: iframe["height"], width: '100%'}}/>
                     </div>
                     <div style={this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT ? queue_large : queue_medium}>
-                        <Qlist queue={this.state.queue} counter={this.state.counter}/>
+                        <Qlist queue={this.state.queue} counter={this.state.counter} height = {this.state.height}/>
                     </div>
                     <div style = {rate_large}>
                         <Rates/>

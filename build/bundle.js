@@ -14792,12 +14792,11 @@ var Qlist = React.createClass({
     getInitialState: function getInitialState() {
         return {
             blinking: false,
-            displayName: [],
-            width: null,
-            height: null
+            displayName: []
         };
     },
     componentWillMount: function componentWillMount() {
+        SCREEN_HEIGHT = this.props.height;
         var firebaseRef = Firebase.database().ref();
         var qlistRef = firebaseRef.child('Qlist');
         qlistRef.on("child_changed", function (snapshot) {
@@ -14826,20 +14825,10 @@ var Qlist = React.createClass({
     },
     componentWillUnmount: function componentWillUnmount() {
         clearInterval(this.state.intervalID);
-        window.removeEventListener("resize", this.updateDimensions);
-    },
-    updateDimensions: function () {
-        this.setState({
-            width: window.innerWidth,
-            height: window.innerHeight
-        });
-    }.bind(undefined),
-    componengDidMount: function componengDidMount() {
-        this.updateDimensions();
-        window.addEventListener("resize", this.updateDimensions);
     },
     render: function render() {
         var length = this.props.queue.length;
+        headerStyle_large["height"] = this.props.height;
         return React.createElement(
             'table',
             { style: headerStyle_large },
@@ -26316,10 +26305,10 @@ var WINDOW_WIDTH_MOBILE = 480;
 var WINDOW_WIDTH_TABLET_PORTRAIT = 768;
 var WINDOW_WIDTH_TABLET_LANDSCAPE = 1024;
 var WINDOW_WIDTH_LAPTOP = 1600;
-var WINDOW_HEIGHT = 768;
+var WINDOW_HEIGHT = 540;
 
 var iframe = {
-    "height": "540px",
+    "height": WINDOW_HEIGHT,
     "width": "70%",
     "margin-right": 0,
     "margin-left": 0,
@@ -26505,6 +26494,8 @@ var App = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            iframe["height"] = this.state.width * 0.7 / 1.77;
+            rate_large["margin-top"] = iframe["height"] - this.state.height;
             if (this.state.width > WINDOW_WIDTH_MOBILE) {
                 return React.createElement(
                     'div',
@@ -26513,12 +26504,12 @@ var App = function (_React$Component) {
                     React.createElement(
                         'div',
                         { style: iframe },
-                        React.createElement(_reactYoutube2.default, { videoId: this.state.urls[this.state.urlIndex], onReady: this.onReadyVideo, onEnd: this.playNext, opts: { playerVars: { autoplay: 1 }, height: '540px', width: '100%' } })
+                        React.createElement(_reactYoutube2.default, { videoId: this.state.urls[this.state.urlIndex], onReady: this.onReadyVideo, onEnd: this.playNext, opts: { playerVars: { autoplay: 1 }, height: iframe["height"], width: '100%' } })
                     ),
                     React.createElement(
                         'div',
                         { style: this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT ? queue_large : queue_medium },
-                        React.createElement(Qlist, { queue: this.state.queue, counter: this.state.counter })
+                        React.createElement(Qlist, { queue: this.state.queue, counter: this.state.counter, height: this.state.height })
                     ),
                     React.createElement(
                         'div',

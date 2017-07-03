@@ -2,7 +2,7 @@ import renderIf from './renderif'
 var React = require('react');
 var Firebase = require('./FirebaseClient.js');
 
-var SCREEN_HEIGHT = 768
+var SCREEN_HEIGHT = 768;
 
 var headerStyle_large = {
     "border": "1px solid black",
@@ -33,12 +33,11 @@ var Qlist = React.createClass({
     getInitialState: function() {
         return {
             blinking: false,
-            displayName: [],
-            width: null,
-            height: null
+            displayName: []
         }
     },
     componentWillMount: function() {
+        SCREEN_HEIGHT = this.props.height;
         var firebaseRef = Firebase.database().ref();
         var qlistRef = firebaseRef.child('Qlist');
         qlistRef.on("child_changed", function (snapshot) {
@@ -59,20 +58,10 @@ var Qlist = React.createClass({
     },
     componentWillUnmount: function() {
         clearInterval(this.state.intervalID);
-        window.removeEventListener("resize", this.updateDimensions);
-    },
-    updateDimensions: function() {
-        this.setState({
-            width: window.innerWidth,
-            height: window.innerHeight
-        });
-    }.bind(this),
-    componengDidMount: function() {
-        this.updateDimensions()
-        window.addEventListener("resize", this.updateDimensions);
     },
     render: function() {
         var length = this.props.queue.length;
+        headerStyle_large["height"]=this.props.height;
         return(
             <table style={headerStyle_large}>
                 <tr>
@@ -113,4 +102,4 @@ var Qlist = React.createClass({
     }
 });
 
-module.exports = Qlist
+module.exports = Qlist;

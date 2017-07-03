@@ -8,7 +8,6 @@ body {
 
 @media only screen and (max-width: 768px) {
   iframe {
-    height: 300px;
     width: 90%;
     margin-right: 2.5%;
     margin-left: 2.5%;
@@ -16,11 +15,5 @@ body {
   }
 }
 @media only screen and (min-width: 768px) {
-  iframe {
-    height: 540px;
-    margin-right: 0;
-    margin-left: 0;
-    margin-top:0;
-    float: left;
-  }
+
 }
