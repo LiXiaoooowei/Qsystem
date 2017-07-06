@@ -67,35 +67,45 @@ var Qlist = React.createClass({
                 <tr>
                     <td style = {entryStyle}>
                         {renderIf(length>=1)(
+                            <div>
                             <h3 style = {{"color": "white", textAlign: 'left'}}>Queue No.</h3>
-                        )}
+
                         <h1 style = {this.state.blinking? Q_blinking: Q_normal}>{this.props.queue[length-1]}</h1>
-                        <h3 style = {{"color": "white",textAlign: 'right'}}>{this.props.counter[length-1]}</h3></td>
+                        <h3 style = {{"color": "white",textAlign: 'right'}}>{this.props.counter[length-1]}</h3>
+                            </div> )}
+                            </td>
+
                 </tr>
                 <tr>
                     <td style = {entryStyle}>
                         {renderIf(length>=2)(
+                            <div>
                             <h3 style = {{"color": "white", textAlign: 'left'}}>Queue No.</h3>
-                        )}
+
                         <h1 style = {Q_normal}> {this.props.queue[length-2]}</h1>
-                        <h3 style = {{"color": "white", textAlign: 'right'}}>{this.props.counter[length-2]}</h3></td>
+                        <h3 style = {{"color": "white", textAlign: 'right'}}>{this.props.counter[length-2]}</h3>
+                            </div> )}
+                            </td>
                 </tr>
                 <tr>
                     <td style = {entryStyle}>
                         {renderIf(length>=3)(
+                            <div>
                             <h3 style = {{"color": "white", textAlign: 'left'}}>Queue No.</h3>
-                        )}
                         <h1 style = {Q_normal}>{this.props.queue[length-3]}</h1>
                         <h3 style = {{"color": "white",textAlign: 'right'}}>{this.props.counter[length-3]}</h3>
-                    </td>
+                            </div> )}
+                            </td>
                 </tr>
                 <tr>
                     <td style = {entryStyle}>
                         {renderIf(length>=4)(
+                            <div>
                             <h3 style = {{"color": "white", textAlign: 'left'}}>Queue No.</h3>
-                        )}
                         <h1 style = {Q_normal}>{this.props.queue[length-4]}</h1>
-                        <h3 style = {{"color": "white",textAlign: 'right'}}>{this.props.counter[length-4]}</h3></td>
+                        <h3 style = {{"color": "white",textAlign: 'right'}}>{this.props.counter[length-4]}</h3>
+                    </div> )}
+                    </td>
                 </tr>
             </table>
         );

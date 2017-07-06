@@ -47,6 +47,7 @@ export default class App extends React.Component {
         this.state = {
             queue: new Array(),
             counter: new Array(),
+            qlist: new Array(),
             urlIndex: 0,
             urls: new Array(),
             height: null,
@@ -61,6 +62,7 @@ export default class App extends React.Component {
         this.clearAllEntries=this.clearAllEntries.bind(this);
         this.setCurrentHour=this.setCurrentHour.bind(this);
         this.getCurrentHour=this.getCurrentHour.bind(this);
+        this.contains = this.contains.bind(this);
     }
 
     componentWillMount() {
@@ -74,33 +76,22 @@ export default class App extends React.Component {
         qlistRef.on("child_added", function (snapshot) {
             var Qentry = snapshot.val().queueNumber;
             var Centry = snapshot.val().servedCounter.split("/");
-            if (Centry[Centry.length - 1] != -1) {
-                items.push(Qentry);
-                counters.push(Centry[Centry.length - 1]);
-            }
-            this.setState({
-                "queue": items,
-                "counter": counters
-            });
+
+            this.contains({counter: Centry[Centry.length - 1], queue: Qentry});
         }.bind(this));
         qlistRef.on("child_changed", function (snapshot) {
             var Qentry = snapshot.val().queueNumber;
             var Centry = snapshot.val().servedCounter.split("/");
             document.getElementById('audio').play();
-            items.push(Qentry);
-            counters.push(Centry[Centry.length - 1]);
 
-            this.setState({
-                "queue": items,
-                "counter": counters
-            });
+            this.contains({counter: Centry[Centry.length - 1], queue: Qentry});
         }.bind(this));
         qlistRef.on("child_removed", function (snapshot) {
             var Qentry = snapshot.val().queueNumber;
-            var Centry = snapshot.val().servedCounter;
+
             if (items.indexOf(Qentry) != -1) {
                 items.splice(items.indexOf(Qentry), 1);
-                counters.splice(counters.indexOf(Centry), 1);
+                counters.splice(items.indexOf(Qentry), 1);
             }
             this.setState({
                 "queue": items,
@@ -148,6 +139,30 @@ export default class App extends React.Component {
         }
     }
 
+    contains(entry) {
+        let array = this.state.qlist;
+        let items = this.state.queue;
+        let counters = this.state.counter;
+        for (let i=0;i<array.length; i++) {
+            if(array[i].split('/')[1] == entry['counter']) {
+                array.splice(i,1);
+                items.splice(i,1);
+                counters.splice(i,1);
+            }
+        }
+        if(entry.counter != '-1') {
+            array.push('/'+entry.counter+'/'+entry.queue);
+            items.push(entry.queue);
+            counters.push(entry.counter);
+        }
+        this.setState({
+            qlist: array,
+            queue: items,
+            counters: counters
+        });
+        console.log(this.state.qlist);
+    }
+
     componentDidMount() {
         window.addEventListener("resize", this.updateDimensions);
         var interval = setInterval(this.setCurrentHour,3600000);
@@ -179,6 +194,7 @@ export default class App extends React.Component {
     }
 
     render() {
+        console.log('value in app is'+this.state.qlist);
         iframe["height"] = this.state.width*0.7/1.77;
         rate_large["margin-top"] = iframe["height"] - this.state.height;
         if (this.state.width > WINDOW_WIDTH_MOBILE) {
@@ -188,7 +204,7 @@ export default class App extends React.Component {
                         <YouTube videoId={this.state.urls[this.state.urlIndex]} onReady = {this.onReadyVideo} onEnd = {this.playNext} opts={{playerVars: {autoplay: 1},height: iframe["height"], width: '100%'}}/>
                     </div>
                     <div style={this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT ? queue_large : queue_medium}>
-                        <Qlist queue={this.state.queue} counter={this.state.counter} height = {this.state.height}/>
+                        <Qlist queue={this.state.queue} counter = {this.state.counter} height = {this.state.height}/>
                     </div>
                     <div style = {rate_large}>
                         <Rates/>
@@ -202,7 +218,7 @@ export default class App extends React.Component {
                         <YouTube videoId={this.state.urls[this.state.urlIndex]} onEnd={this.playNext}/>
                     </div>
                     <div style={this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT ? queue_large : queue_medium}>
-                        <Qlist queue={this.state.queue} counter={this.state.counter}/>
+                        <Qlist queue={this.state.queue} counter = {this.state.counter}/>
                     </div>
                 </div>
             );
