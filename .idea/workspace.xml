@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="399b0a25-d73b-4236-9018-97a41d4c1612" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/counter.js" afterPath="$PROJECT_DIR$/app/counter.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/login.js" afterPath="$PROJECT_DIR$/app/login.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/Rates.js" afterPath="$PROJECT_DIR$/app/components/Rates.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/bundle.js" afterPath="$PROJECT_DIR$/build/bundle.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -28,6 +27,16 @@
               <folding>
                 <marker date="1499417660000" expanded="true" signature="1204:1315" ph="{...}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Rates.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/components/Rates.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="505">
+              <caret line="100" column="104" lean-forward="false" selection-start-line="100" selection-start-column="104" selection-end-line="100" selection-end-column="104" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -66,10 +75,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="counter.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="counter.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/counter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
+            <state relative-caret-position="385">
               <caret line="171" column="133" lean-forward="false" selection-start-line="171" selection-start-column="133" selection-end-line="171" selection-end-column="133" />
               <folding />
             </state>
@@ -118,10 +127,10 @@
         <option value="$PROJECT_DIR$/app/components/EditExistingExRate.js" />
         <option value="$PROJECT_DIR$/app/components/Qlist.js" />
         <option value="$PROJECT_DIR$/database.rules.json" />
-        <option value="$PROJECT_DIR$/app/components/Rates.js" />
         <option value="$PROJECT_DIR$/app/App.js" />
         <option value="$PROJECT_DIR$/app/login.js" />
         <option value="$PROJECT_DIR$/app/counter.js" />
+        <option value="$PROJECT_DIR$/app/components/Rates.js" />
       </list>
     </option>
   </component>
@@ -339,12 +348,12 @@
       <workItem from="1499066148943" duration="1523000" />
       <workItem from="1499139942272" duration="25502000" />
       <workItem from="1499415120711" duration="85000" />
-      <workItem from="1499416003475" duration="1984000" />
+      <workItem from="1499416003475" duration="2215000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="106545000" />
+    <option name="totallyTimeSpent" value="106776000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -366,7 +375,7 @@
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20698577" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29761904" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29754204" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -694,14 +703,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/Rates.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="91" column="24" lean-forward="true" selection-start-line="91" selection-start-column="24" selection-end-line="91" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database.rules.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -758,8 +759,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/counter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
+        <state relative-caret-position="385">
           <caret line="171" column="133" lean-forward="false" selection-start-line="171" selection-start-column="133" selection-end-line="171" selection-end-column="133" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/components/Rates.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="505">
+          <caret line="100" column="104" lean-forward="false" selection-start-line="100" selection-start-column="104" selection-end-line="100" selection-end-column="104" />
           <folding />
         </state>
       </provider>

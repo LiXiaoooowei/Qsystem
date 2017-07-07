@@ -14543,8 +14543,7 @@ exports.default = React.createClass({
 					'div',
 					{ style: this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT ? qCutBtn_large : qCutBtn_medium },
 					React.createElement(Philippine, null)
-				),
-				React.createElement(AddNewExRate, null)
+				)
 			);
 		} else {
 			return React.createElement(
