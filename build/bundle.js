@@ -28105,26 +28105,26 @@ var Rates = React.createClass({
                 'span',
                 { style: { display: 'block' } },
                 React.createElement('img', { src: _icn_indonesia2.default, alt: '',
-                    style: { width: "10%", marginRight: '0%', marginLeft: '5%' } }),
+                    style: { width: "10%", marginRight: '0%', marginLeft: '2%' } }),
                 React.createElement(
                     'div',
-                    { style: { width: '25%', display: 'inline-block', marginTop: '5%' } },
+                    { style: { width: '30%', display: 'inline-block', marginTop: '5%' } },
                     React.createElement(
                         'h3',
                         {
-                            style: { color: 'white', textAlign: 'center', fontSize: '4vw' } },
+                            style: { color: 'white', textAlign: 'center', fontSize: '3vw' } },
                         this.state.indonesia,
                         ' IDR'
                     )
                 ),
-                React.createElement('img', { src: _icn_philippine2.default, alt: '', style: { display: 'inline-block', width: "10%", marginLeft: '5%' } }),
+                React.createElement('img', { src: _icn_philippine2.default, alt: '', style: { display: 'inline-block', width: "10%", marginLeft: '2%' } }),
                 React.createElement(
                     'div',
-                    { style: { width: '25%', display: 'inline-block', marginRight: '15%' } },
+                    { style: { width: '30%', display: 'inline-block', marginRight: '15%' } },
                     React.createElement(
                         'h3',
                         {
-                            style: { color: 'white', textAlign: 'center', fontSize: '4vw' } },
+                            style: { color: 'white', textAlign: 'center', fontSize: '3vw' } },
                         this.state.philippine,
                         ' PHP'
                     )

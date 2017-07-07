@@ -72,6 +72,7 @@ export default class App extends React.Component {
         var firebaseRef = Firebase.database().ref();
         var qlistRef = firebaseRef.child('Qlist');
         var urlRef = firebaseRef.child('VideoURL');
+        let numvideoRef = firebaseRef.child('NumVideos');
 
         qlistRef.on("child_added", function (snapshot) {
             var Qentry = snapshot.val().queueNumber;
@@ -98,6 +99,11 @@ export default class App extends React.Component {
                 "counter": counters
             });
         }.bind(this));
+        numvideoRef.on('value', function(snapshot) {
+            this.setState({
+                videoNum: snapshot.val()
+            })
+        }.bind(this))
         urlRef.on("child_added", function (snapshot) {
             var url = snapshot.val().url;
             var urls_ = this.state.urls;
@@ -186,7 +192,8 @@ export default class App extends React.Component {
     playNext(event) {
         this.state.player.seekTo(-1);
         var index = this.state.urlIndex;
-        index = (index+1)%1;
+        let numVideo = this.state.videoNum;
+        index = (index+1)%numVideo;
         console.log(index);
         this.setState({
             urlIndex: index

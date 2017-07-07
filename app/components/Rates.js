@@ -95,12 +95,12 @@ var Rates = React.createClass({
                 </span>
                 <span style = {{display: 'block'}}>
                     <img src={imgI} alt=""
-                         style={{width: "10%", marginRight: '0%', marginLeft: '5%'}}></img>
-                    <div style={{width: '25%', display: 'inline-block', marginTop: '5%'}}><h3
-                        style={{color: 'white', textAlign: 'center', fontSize: '4vw'}}>{this.state.indonesia} IDR</h3></div>
-                    <img src={imgP} alt="" style={{display: 'inline-block', width: "10%", marginLeft: '5%'}}></img>
-                    <div style={{width: '25%',display: 'inline-block', marginRight: '15%'}}><h3
-                        style={{color: 'white', textAlign: 'center',fontSize: '4vw'}}>{this.state.philippine} PHP</h3></div>
+                         style={{width: "10%", marginRight: '0%', marginLeft: '2%'}}></img>
+                    <div style={{width: '30%', display: 'inline-block', marginTop: '5%'}}><h3
+                        style={{color: 'white', textAlign: 'center', fontSize: '3vw'}}>{this.state.indonesia} IDR</h3></div>
+                    <img src={imgP} alt="" style={{display: 'inline-block', width: "10%", marginLeft: '2%'}}></img>
+                    <div style={{width: '30%',display: 'inline-block', marginRight: '15%'}}><h3
+                        style={{color: 'white', textAlign: 'center',fontSize: '3vw'}}>{this.state.philippine} PHP</h3></div>
                 </span>
             </div>
         );
