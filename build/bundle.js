@@ -26500,11 +26500,7 @@ var App = function (_React$Component) {
                     "counter": counters
                 });
             }.bind(this));
-            numvideoRef.on('value', function (snapshot) {
-                this.setState({
-                    videoNum: snapshot.val()
-                });
-            }.bind(this));
+
             urlRef.on("child_added", function (snapshot) {
                 var url = snapshot.val().url;
                 var urls_ = this.state.urls;
@@ -26606,7 +26602,7 @@ var App = function (_React$Component) {
         value: function playNext(event) {
             this.state.player.seekTo(-1);
             var index = this.state.urlIndex;
-            var numVideo = this.state.videoNum;
+            var numVideo = this.state.urls.length;
             index = (index + 1) % numVideo;
             console.log(index);
             this.setState({

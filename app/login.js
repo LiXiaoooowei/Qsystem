@@ -70,7 +70,7 @@ class login extends React.Component {
 		});
 		var contextTypes = { router: React.PropTypes.object };
 		if (this.state.isLoggedIn) {
-			const location = this.props.location
+			const location = this.props.location;
 			browserHistory.push('/counter');
 		} else {
 			browserHistory.push('/');

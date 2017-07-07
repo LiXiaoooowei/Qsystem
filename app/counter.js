@@ -170,7 +170,6 @@ export default React.createClass({
 				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qCutBtn_large: qCutBtn_medium}><CutQform /></div>
                     <div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qCutBtn_large: qCutBtn_medium}><Indonesia/></div>
                     <div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qCutBtn_large: qCutBtn_medium}><Philippine/></div>
-					<AddNewExRate />
 				</div>
 			);
 		} else {
