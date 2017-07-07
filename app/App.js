@@ -99,11 +99,7 @@ export default class App extends React.Component {
                 "counter": counters
             });
         }.bind(this));
-        numvideoRef.on('value', function(snapshot) {
-            this.setState({
-                videoNum: snapshot.val()
-            })
-        }.bind(this))
+
         urlRef.on("child_added", function (snapshot) {
             var url = snapshot.val().url;
             var urls_ = this.state.urls;
@@ -192,7 +188,7 @@ export default class App extends React.Component {
     playNext(event) {
         this.state.player.seekTo(-1);
         var index = this.state.urlIndex;
-        let numVideo = this.state.videoNum;
+        let numVideo = this.state.urls.length;
         index = (index+1)%numVideo;
         console.log(index);
         this.setState({

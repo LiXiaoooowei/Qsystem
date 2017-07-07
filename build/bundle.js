@@ -26473,6 +26473,7 @@ var App = function (_React$Component) {
             var firebaseRef = Firebase.database().ref();
             var qlistRef = firebaseRef.child('Qlist');
             var urlRef = firebaseRef.child('VideoURL');
+            var numvideoRef = firebaseRef.child('NumVideos');
 
             qlistRef.on("child_added", function (snapshot) {
                 var Qentry = snapshot.val().queueNumber;
@@ -26497,6 +26498,11 @@ var App = function (_React$Component) {
                 this.setState({
                     "queue": items,
                     "counter": counters
+                });
+            }.bind(this));
+            numvideoRef.on('value', function (snapshot) {
+                this.setState({
+                    videoNum: snapshot.val()
                 });
             }.bind(this));
             urlRef.on("child_added", function (snapshot) {
@@ -26600,7 +26606,8 @@ var App = function (_React$Component) {
         value: function playNext(event) {
             this.state.player.seekTo(-1);
             var index = this.state.urlIndex;
-            index = (index + 1) % 1;
+            var numVideo = this.state.videoNum;
+            index = (index + 1) % numVideo;
             console.log(index);
             this.setState({
                 urlIndex: index
