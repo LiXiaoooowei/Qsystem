@@ -1,4 +1,3 @@
-import {Link} from 'react-router';
 var React = require('react');
 var Qwait = require('./components/Qwaiting.js');
 var Qserve = require('./components/Qserving.js');
@@ -171,6 +170,7 @@ export default React.createClass({
 				<div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qCutBtn_large: qCutBtn_medium}><CutQform /></div>
                     <div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qCutBtn_large: qCutBtn_medium}><Indonesia/></div>
                     <div style = {this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT? qCutBtn_large: qCutBtn_medium}><Philippine/></div>
+					<AddNewExRate />
 				</div>
 			);
 		} else {

@@ -40,9 +40,33 @@ var Qlist = React.createClass({
         SCREEN_HEIGHT = this.props.height;
         var firebaseRef = Firebase.database().ref();
         var qlistRef = firebaseRef.child('Qlist');
+        var qtotalRef=firebaseRef.child('Qtotal');
+        var qserveRef=firebaseRef.child('Qserving');
+        var served=null, total=null;
         qlistRef.on("child_changed", function (snapshot) {
             this.toggleBgForFixedPeriod();
         }.bind(this));
+        qserveRef.once('value', function(snapshot){
+            served=snapshot.val();
+        }.bind(this))
+        qtotalRef.once("value", function(snapshot){
+            total=snapshot.val();
+            this.setState({
+                customer_left: total-served
+            })
+        }.bind(this))
+        qtotalRef.on("value", function(snapshot){
+            total=snapshot.val();
+            this.setState({
+                customer_left: total-served
+            })
+        }.bind(this))
+        qserveRef.on("value", function(snapshot){
+            served=snapshot.val();
+            this.setState({
+                customer_left: total-served
+            })
+        }.bind(this))
     },
     toggleBgForFixedPeriod: function() {
         this.toggleBgColor();
@@ -61,6 +85,10 @@ var Qlist = React.createClass({
     },
     render: function() {
         var length = this.props.queue.length;
+        let pos_inQ = length;
+        if (length > 3) {
+            pos_inQ = 3;
+        }
         headerStyle_large["height"]=this.props.height;
         return(
             <table style={headerStyle_large}>
@@ -68,10 +96,15 @@ var Qlist = React.createClass({
                     <td style = {entryStyle}>
                         {renderIf(length>=1)(
                             <div>
-                            <h3 style = {{"color": "white", textAlign: 'left'}}>Queue No.</h3>
+                            <h3 style = {{"color": "white", textAlign: 'left'}}>Now Serving:</h3>
 
                         <h1 style = {this.state.blinking? Q_blinking: Q_normal}>{this.props.queue[length-1]}</h1>
                         <h3 style = {{"color": "white",textAlign: 'right'}}>{this.props.counter[length-1]}</h3>
+                            </div> )}
+                        {renderIf(pos_inQ==0)(
+                            <div>
+                                <h3 style = {{"color": "white", textAlign: 'left'}}>No. Customers in Queue:</h3>
+                                <h1 style = {this.state.blinking? Q_blinking: Q_normal}>{this.state.customer_left}</h1>
                             </div> )}
                             </td>
 
@@ -80,10 +113,15 @@ var Qlist = React.createClass({
                     <td style = {entryStyle}>
                         {renderIf(length>=2)(
                             <div>
-                            <h3 style = {{"color": "white", textAlign: 'left'}}>Queue No.</h3>
+                            <h3 style = {{"color": "white", textAlign: 'left'}}>Now Serving:</h3>
 
                         <h1 style = {Q_normal}> {this.props.queue[length-2]}</h1>
                         <h3 style = {{"color": "white", textAlign: 'right'}}>{this.props.counter[length-2]}</h3>
+                            </div> )}
+                        {renderIf(pos_inQ==1)(
+                            <div>
+                                <h3 style = {{"color": "white", textAlign: 'left'}}>No. Customers in Queue:</h3>
+                                <h1 style = {this.state.blinking? Q_blinking: Q_normal}>{this.state.customer_left}</h1>
                             </div> )}
                             </td>
                 </tr>
@@ -91,9 +129,14 @@ var Qlist = React.createClass({
                     <td style = {entryStyle}>
                         {renderIf(length>=3)(
                             <div>
-                            <h3 style = {{"color": "white", textAlign: 'left'}}>Queue No.</h3>
+                            <h3 style = {{"color": "white", textAlign: 'left'}}>Now Serving:</h3>
                         <h1 style = {Q_normal}>{this.props.queue[length-3]}</h1>
                         <h3 style = {{"color": "white",textAlign: 'right'}}>{this.props.counter[length-3]}</h3>
+                            </div> )}
+                        {renderIf(pos_inQ==2)(
+                            <div>
+                                <h3 style = {{"color": "white", textAlign: 'left'}}>No. Customers in Queue:</h3>
+                                <h1 style = {this.state.blinking? Q_blinking: Q_normal}>{this.state.customer_left}</h1>
                             </div> )}
                             </td>
                 </tr>
@@ -101,10 +144,15 @@ var Qlist = React.createClass({
                     <td style = {entryStyle}>
                         {renderIf(length>=4)(
                             <div>
-                            <h3 style = {{"color": "white", textAlign: 'left'}}>Queue No.</h3>
+                            <h3 style = {{"color": "white", textAlign: 'left'}}>Now Serving:</h3>
                         <h1 style = {Q_normal}>{this.props.queue[length-4]}</h1>
                         <h3 style = {{"color": "white",textAlign: 'right'}}>{this.props.counter[length-4]}</h3>
                     </div> )}
+                        {renderIf(pos_inQ==3)(
+                            <div>
+                                <h3 style = {{"color": "white", textAlign: 'left'}}>No. Customers in Queue:</h3>
+                                <h1 style = {this.state.blinking? Q_blinking: Q_normal}>{this.state.customer_left}</h1>
+                            </div> )}
                     </td>
                 </tr>
             </table>

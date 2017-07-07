@@ -186,7 +186,7 @@ export default class App extends React.Component {
     playNext(event) {
         this.state.player.seekTo(-1);
         var index = this.state.urlIndex;
-        index = (index+1)%3;
+        index = (index+1)%1;
         console.log(index);
         this.setState({
             urlIndex: index
