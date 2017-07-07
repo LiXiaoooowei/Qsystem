@@ -28107,7 +28107,7 @@ var Rates = React.createClass({
                 'span',
                 { style: { display: 'block' } },
                 React.createElement('img', { src: _icn_indonesia2.default, alt: '',
-                    style: { width: "10%", marginRight: '0%', marginLeft: '2%' } }),
+                    style: { width: "10%", marginRight: '0%', marginLeft: '5%' } }),
                 React.createElement(
                     'div',
                     { style: { width: '30%', display: 'inline-block', marginTop: '5%' } },
@@ -28119,7 +28119,7 @@ var Rates = React.createClass({
                         ' IDR'
                     )
                 ),
-                React.createElement('img', { src: _icn_philippine2.default, alt: '', style: { display: 'inline-block', width: "10%", marginLeft: '2%' } }),
+                React.createElement('img', { src: _icn_philippine2.default, alt: '', style: { display: 'inline-block', width: "10%", marginLeft: '0%' } }),
                 React.createElement(
                     'div',
                     { style: { width: '30%', display: 'inline-block', marginRight: '15%' } },

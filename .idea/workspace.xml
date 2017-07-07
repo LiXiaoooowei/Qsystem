@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="399b0a25-d73b-4236-9018-97a41d4c1612" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/Rates.js" afterPath="$PROJECT_DIR$/app/components/Rates.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/components/Qlist.js" afterPath="$PROJECT_DIR$/app/components/Qlist.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/bundle.js" afterPath="$PROJECT_DIR$/build/bundle.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -19,6 +19,16 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Qlist.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/components/Qlist.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="505">
+              <caret line="162" column="58" lean-forward="false" selection-start-line="162" selection-start-column="58" selection-end-line="162" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/App.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -31,11 +41,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Rates.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Rates.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/components/Rates.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="505">
-              <caret line="100" column="104" lean-forward="false" selection-start-line="100" selection-start-column="104" selection-end-line="100" selection-end-column="104" />
+            <state relative-caret-position="320">
+              <caret line="94" column="23" lean-forward="true" selection-start-line="94" selection-start-column="23" selection-end-line="94" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -125,12 +135,12 @@
         <option value="$PROJECT_DIR$/app/style.css" />
         <option value="$PROJECT_DIR$/app/components/AddNewExRate.js" />
         <option value="$PROJECT_DIR$/app/components/EditExistingExRate.js" />
-        <option value="$PROJECT_DIR$/app/components/Qlist.js" />
         <option value="$PROJECT_DIR$/database.rules.json" />
         <option value="$PROJECT_DIR$/app/App.js" />
         <option value="$PROJECT_DIR$/app/login.js" />
         <option value="$PROJECT_DIR$/app/counter.js" />
         <option value="$PROJECT_DIR$/app/components/Rates.js" />
+        <option value="$PROJECT_DIR$/app/components/Qlist.js" />
       </list>
     </option>
   </component>
@@ -146,8 +156,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="200" />
-    <option name="y" value="82" />
+    <option name="x" value="224" />
+    <option name="y" value="67" />
     <option name="width" value="1443" />
     <option name="height" value="865" />
   </component>
@@ -348,12 +358,12 @@
       <workItem from="1499066148943" duration="1523000" />
       <workItem from="1499139942272" duration="25502000" />
       <workItem from="1499415120711" duration="85000" />
-      <workItem from="1499416003475" duration="2215000" />
+      <workItem from="1499416003475" duration="2934000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="106776000" />
+    <option name="totallyTimeSpent" value="107495000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -365,7 +375,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="200" y="82" width="1443" height="865" extended-state="0" />
+    <frame x="224" y="67" width="1443" height="865" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17158931" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -585,6 +595,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="59">
           <caret line="112" column="26" lean-forward="true" selection-start-line="112" selection-start-column="26" selection-end-line="112" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -695,14 +706,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/components/Qlist.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="114" column="22" lean-forward="true" selection-start-line="114" selection-start-column="22" selection-end-line="114" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database.rules.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -767,8 +770,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/components/Rates.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="94" column="23" lean-forward="true" selection-start-line="94" selection-start-column="23" selection-end-line="94" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/components/Qlist.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="505">
-          <caret line="100" column="104" lean-forward="false" selection-start-line="100" selection-start-column="104" selection-end-line="100" selection-end-column="104" />
+          <caret line="162" column="58" lean-forward="false" selection-start-line="162" selection-start-column="58" selection-end-line="162" selection-end-column="58" />
           <folding />
         </state>
       </provider>

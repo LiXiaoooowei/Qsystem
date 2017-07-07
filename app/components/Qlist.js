@@ -22,12 +22,18 @@ var Q_normal = {
     "color": "#E1B873",
     "textAlign": "center",
     "font-size": "6.5vw"
-}
+};
+var Q_normal_wait = {
+    "color": "#E1B873",
+    "textAlign": "center",
+    "font-size": "5vw",
+    'color': 'white'
+};
 var Q_blinking = {
     "color": "red",
     "textAlign": "center",
     "font-size": "6.5vw"
-}
+};
 
 var Qlist = React.createClass({
     getInitialState: function() {
@@ -88,6 +94,9 @@ var Qlist = React.createClass({
         let pos_inQ = length;
         if (length > 3) {
             pos_inQ = 3;
+        }
+        if (length == 0) {
+            pos_inQ = '--'
         }
         headerStyle_large["height"]=this.props.height;
         return(
@@ -151,7 +160,7 @@ var Qlist = React.createClass({
                         {renderIf(pos_inQ==3)(
                             <div>
                                 <h3 style = {{"color": "white", textAlign: 'left'}}>No. Customers in Queue:</h3>
-                                <h1 style = {this.state.blinking? Q_blinking: Q_normal}>{this.state.customer_left}</h1>
+                                <h1 style = {Q_normal_wait}>{this.state.customer_left}</h1>
                             </div> )}
                     </td>
                 </tr>
