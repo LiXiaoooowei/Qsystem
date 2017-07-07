@@ -21,12 +21,12 @@ var entryStyle = {
 var Q_normal = {
     "color": "#E1B873",
     "textAlign": "center",
-    "font-size": "6.5rem"
+    "font-size": "6.5vw"
 }
 var Q_blinking = {
     "color": "red",
     "textAlign": "center",
-    "font-size": "6.5rem"
+    "font-size": "6.5vw"
 }
 
 var Qlist = React.createClass({
