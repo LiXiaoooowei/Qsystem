@@ -38,6 +38,11 @@ var input_label = {
     "font-family": "Sans-serif",
     "color": "#E1B873"
 };
+
+var DAY_IN_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+var MONTH_IN_YEAR = ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September'
+    , 'October', 'November', 'December']
+
 class form extends React.Component {
     constructor(props) {
         super(props);
@@ -61,6 +66,24 @@ class form extends React.Component {
     }
     handleSubmit(event) {
         event.preventDefault();
+        let day = DAY_IN_WEEK[(new Date()).getDay()];
+        let dd = (new Date()).getDate();
+        let mm = MONTH_IN_YEAR[(new Date()).getMonth()];
+        let yyyy = (new Date()).getFullYear();
+        let hh = (new Date()).getHours();
+        let min = (new Date()).getMinutes();
+        if (min<10) {
+            min = '0'+min;
+        }
+        if (hh > 12) {
+            hh = hh - 12;
+            min += 'PM'
+        } else {
+            min += 'AM'
+        }
+        if (dd < 10) {
+            dd = '0' + dd
+        }
         var number_ = parseFloat(this.state.number);
         if (isNaN(this.state.number)){
             alert("Please enter a valid number");
@@ -70,10 +93,15 @@ class form extends React.Component {
             alert("Empty input field is not allowed");
         }
         var firebaseRef = Firebase.database().ref();
-        var indonesiaRef = firebaseRef.child('Ex_Philippine');
+        var philippineRef = firebaseRef.child('Ex_Philippine');
+        philippineRef.update({
+            "value": number_,
+            'time': day + ", " + dd + " " + mm + " " + yyyy + "   " + hh + ":" + min,
+        });
+        var indonesiaRef = firebaseRef.child('Ex_Indonesia');
         indonesiaRef.update({
-            "value": number_
-        })
+            'time': day + ", " + dd + " " + mm + " " + yyyy + "   " + hh + ":" + min,
+        });
         alert("Philippine Exchange Rate updated to "+number_+" successfully!");
     }
     render() {

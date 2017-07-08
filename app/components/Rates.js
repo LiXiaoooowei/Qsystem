@@ -4,9 +4,6 @@ var React = require('react');
 var Firebase = require('./FirebaseClient.js');
 
 var SCREEN_HEIGHT = 768
-var DAY_IN_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-var MONTH_IN_YEAR = ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September'
-    , 'October', 'November', 'December']
 
 var rate = {
     'width': '100%',
@@ -18,14 +15,9 @@ var Rates = React.createClass({
         return {
             width: null,
             height: null,
-            day: DAY_IN_WEEK[(new Date()).getDay()],
-            dd: (new Date()).getDate(),
-            mm: MONTH_IN_YEAR[(new Date()).getMonth()],
-            yyyy: (new Date()).getFullYear(),
-            hh: (new Date()).getHours(),
-            min: (new Date()).getMinutes(),
             indonesia: 0,
-            philippine: 0
+            philippine: 0,
+            lastUpdated: null
         }
     },
     componentWillMount: function () {
@@ -37,26 +29,33 @@ var Rates = React.createClass({
         }, 1000);
         var indonesiaRates = Firebase.database().ref().child('Ex_Indonesia');
         var philippineRates = Firebase.database().ref().child('Ex_Philippine');
-        indonesiaRates.on('child_changed', function(snapshot){
-            this.setState({
-                indonesia: snapshot.val()
-            })
-        }.bind(this))
-        philippineRates.on('child_changed', function(snapshot){
-            this.setState({
-                philippine: snapshot.val()
-            })
-        }.bind(this))
-        indonesiaRates.on('child_added', function(snapshot){
-            this.setState({
-                indonesia: snapshot.val()
-            })
-        }.bind(this))
-        philippineRates.on('child_added', function(snapshot){
-            this.setState({
-                philippine: snapshot.val()
-            })
-        }.bind(this))
+
+        philippineRates.on('value', function(snapshot){
+            if(snapshot.hasChild('time')) {
+                this.setState({
+                    philippine: snapshot.val().value,
+                    datetimeP: snapshot.val().datetimestring,
+                    lastUpdated:snapshot.val().time
+                });
+            } else {
+                this.setState({
+                    philippine: snapshot.val().value
+                })
+            }
+        }.bind(this));
+        indonesiaRates.on('value', function(snapshot){
+            if(snapshot.hasChild('time')) {
+                this.setState({
+                    indonesia: snapshot.val().value,
+                    datetimeI: snapshot.val().datetimestring,
+                    lastUpdated:snapshot.val().time
+                });
+            } else {
+                this.setState({
+                    indonesia: snapshot.val().value
+                })
+            }
+        }.bind(this));
     },
     componentWillUnmount: function () {
         clearInterval(this.state.intervalID);
@@ -73,24 +72,13 @@ var Rates = React.createClass({
         window.addEventListener("resize", this.updateDimensions);
     },
     render: function () {
-        var hh = this.state.hh;
-        var min = this.state.min;
-        var dd = this.state.dd;
-        if (hh > 12) {
-            hh = hh - 12;
-            min += 'PM'
-        } else {
-            min += 'AM'
-        }
-        if (dd < 10) {
-            dd = '0' + dd
-        }
+
         return (
             <div style = {rate}>
                 <span style = {{display: 'block', width: '100%'}}>
                     <div style = {{width: '40%', display: 'inline-block'}}>  <h3 style={{color: '#E1B873', textAlign: 'right', marginLeft: '10%'}}>Rates last updated: </h3></div>
                     <div style = {{width: '60%', display: 'inline-block'}}><h3 style={{color: 'white', textAlign: 'left', marginLeft: '5%'}}>
-                        {this.state.day + ", " + dd + " " + this.state.mm + " " + this.state.yyyy + "   " + hh + ":" + min}
+                        {this.state.lastUpdated}
                     </h3></div>
                 </span>
                 <span style = {{display: 'block'}}>

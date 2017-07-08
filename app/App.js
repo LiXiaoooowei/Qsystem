@@ -162,7 +162,6 @@ export default class App extends React.Component {
             queue: items,
             counters: counters
         });
-        console.log(this.state.qlist);
     }
 
     componentDidMount() {
@@ -190,14 +189,12 @@ export default class App extends React.Component {
         var index = this.state.urlIndex;
         let numVideo = this.state.urls.length;
         index = (index+1)%numVideo;
-        console.log(index);
         this.setState({
             urlIndex: index
         });
     }
 
     render() {
-        console.log('value in app is'+this.state.qlist);
         iframe["height"] = this.state.width*0.7/1.77;
         rate_large["margin-top"] = iframe["height"] - this.state.height;
         if (this.state.width > WINDOW_WIDTH_MOBILE) {
