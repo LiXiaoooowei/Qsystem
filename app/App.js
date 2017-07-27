@@ -18,7 +18,6 @@ var iframe = {
     "width": "70%",
     "margin-right": 0,
     "margin-left": 0,
-    "margin-top":0,
     "float": "left"
 };
 var queue_large = {
@@ -38,7 +37,10 @@ var queue_medium = {
 var rate_large = {
     "width": "70%",
     "float": "left",
-    "margin-top": 540 - WINDOW_HEIGHT
+    "margin-top": 0 ,
+    "margin-right": 0,
+    "margin-left": 0,
+    "height": 0
 };
 
 export default class App extends React.Component {
@@ -196,18 +198,19 @@ export default class App extends React.Component {
 
     render() {
         iframe["height"] = this.state.width*0.7/1.77;
-        rate_large["margin-top"] = iframe["height"] - this.state.height;
+        rate_large["height"] = this.state.height - iframe["height"];
+        iframe["margin-top"] = rate_large["height"] - this.state.height;
         if (this.state.width > WINDOW_WIDTH_MOBILE) {
             return (<div>
                     <MenuFlat />
-                    <div style = {iframe}>
-                        <YouTube videoId={this.state.urls[this.state.urlIndex]} onReady = {this.onReadyVideo} onEnd = {this.playNext} opts={{playerVars: {autoplay: 1},height: iframe["height"], width: '100%'}}/>
+                    <div style = {rate_large}>
+                        <Rates/>
                     </div>
                     <div style={this.state.width > WINDOW_WIDTH_TABLET_PORTRAIT ? queue_large : queue_medium}>
                         <Qlist queue={this.state.queue} counter = {this.state.counter} height = {this.state.height}/>
                     </div>
-                    <div style = {rate_large}>
-                        <Rates/>
+                    <div style = {iframe}>
+                        <YouTube videoId={this.state.urls[this.state.urlIndex]} onReady = {this.onReadyVideo} onEnd = {this.playNext} opts={{playerVars: {autoplay: 1},height: iframe["height"], width: '100%'}}/>
                     </div>
                 </div>
             );

@@ -14777,6 +14777,7 @@ var Q_normal = {
     "textAlign": "center",
     "font-size": "6.5vw"
 };
+
 var Q_blinking = {
     "color": "red",
     "textAlign": "center",
@@ -14796,33 +14797,9 @@ var Qlist = React.createClass({
         SCREEN_HEIGHT = this.props.height;
         var firebaseRef = Firebase.database().ref();
         var qlistRef = firebaseRef.child('Qlist');
-        var qtotalRef = firebaseRef.child('Qtotal');
-        var qserveRef = firebaseRef.child('Qserving');
-        var served = null,
-            total = null;
+
         qlistRef.on("child_changed", function (snapshot) {
             this.toggleBgForFixedPeriod();
-        }.bind(this));
-        qserveRef.once('value', function (snapshot) {
-            served = snapshot.val();
-        }.bind(this));
-        qtotalRef.once("value", function (snapshot) {
-            total = snapshot.val();
-            this.setState({
-                customer_left: total - served
-            });
-        }.bind(this));
-        qtotalRef.on("value", function (snapshot) {
-            total = snapshot.val();
-            this.setState({
-                customer_left: total - served
-            });
-        }.bind(this));
-        qserveRef.on("value", function (snapshot) {
-            served = snapshot.val();
-            this.setState({
-                customer_left: total - served
-            });
         }.bind(this));
     },
     toggleBgForFixedPeriod: function toggleBgForFixedPeriod() {
@@ -14850,10 +14827,6 @@ var Qlist = React.createClass({
     },
     render: function render() {
         var length = this.props.queue.length;
-        var pos_inQ = length;
-        if (length > 3) {
-            pos_inQ = 3;
-        }
         headerStyle_large["height"] = this.props.height;
         return React.createElement(
             'table',
@@ -14881,20 +14854,6 @@ var Qlist = React.createClass({
                             'h3',
                             { style: { "color": "white", textAlign: 'right' } },
                             this.props.counter[length - 1]
-                        )
-                    )),
-                    (0, _renderif2.default)(pos_inQ == 0)(React.createElement(
-                        'div',
-                        null,
-                        React.createElement(
-                            'h3',
-                            { style: { "color": "white", textAlign: 'left' } },
-                            'No. Customers in Queue:'
-                        ),
-                        React.createElement(
-                            'h1',
-                            { style: this.state.blinking ? Q_blinking : Q_normal },
-                            this.state.customer_left
                         )
                     ))
                 )
@@ -14924,20 +14883,6 @@ var Qlist = React.createClass({
                             { style: { "color": "white", textAlign: 'right' } },
                             this.props.counter[length - 2]
                         )
-                    )),
-                    (0, _renderif2.default)(pos_inQ == 1)(React.createElement(
-                        'div',
-                        null,
-                        React.createElement(
-                            'h3',
-                            { style: { "color": "white", textAlign: 'left' } },
-                            'No. Customers in Queue:'
-                        ),
-                        React.createElement(
-                            'h1',
-                            { style: this.state.blinking ? Q_blinking : Q_normal },
-                            this.state.customer_left
-                        )
                     ))
                 )
             ),
@@ -14965,20 +14910,6 @@ var Qlist = React.createClass({
                             { style: { "color": "white", textAlign: 'right' } },
                             this.props.counter[length - 3]
                         )
-                    )),
-                    (0, _renderif2.default)(pos_inQ == 2)(React.createElement(
-                        'div',
-                        null,
-                        React.createElement(
-                            'h3',
-                            { style: { "color": "white", textAlign: 'left' } },
-                            'No. Customers in Queue:'
-                        ),
-                        React.createElement(
-                            'h1',
-                            { style: this.state.blinking ? Q_blinking : Q_normal },
-                            this.state.customer_left
-                        )
                     ))
                 )
             ),
@@ -15005,20 +14936,6 @@ var Qlist = React.createClass({
                             'h3',
                             { style: { "color": "white", textAlign: 'right' } },
                             this.props.counter[length - 4]
-                        )
-                    )),
-                    (0, _renderif2.default)(pos_inQ == 3)(React.createElement(
-                        'div',
-                        null,
-                        React.createElement(
-                            'h3',
-                            { style: { "color": "white", textAlign: 'left' } },
-                            'No. Customers in Queue:'
-                        ),
-                        React.createElement(
-                            'h1',
-                            { style: this.state.blinking ? Q_blinking : Q_normal },
-                            this.state.customer_left
                         )
                     ))
                 )
@@ -26571,7 +26488,6 @@ var App = function (_React$Component) {
                 queue: items,
                 counters: counters
             });
-            console.log(this.state.qlist);
         }
     }, {
         key: 'componentDidMount',
@@ -26603,7 +26519,6 @@ var App = function (_React$Component) {
             var index = this.state.urlIndex;
             var numVideo = this.state.urls.length;
             index = (index + 1) % numVideo;
-            console.log(index);
             this.setState({
                 urlIndex: index
             });
@@ -26611,7 +26526,6 @@ var App = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            console.log('value in app is' + this.state.qlist);
             iframe["height"] = this.state.width * 0.7 / 1.77;
             rate_large["margin-top"] = iframe["height"] - this.state.height;
             if (this.state.width > WINDOW_WIDTH_MOBILE) {
@@ -27228,6 +27142,8 @@ var input_label = {
     "font-family": "Sans-serif",
     "color": "#E1B873"
 };
+var DAY_IN_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+var MONTH_IN_YEAR = ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 var form = function (_React$Component) {
     _inherits(form, _React$Component);
@@ -27265,6 +27181,29 @@ var form = function (_React$Component) {
         key: 'handleSubmit',
         value: function handleSubmit(event) {
             event.preventDefault();
+            var day = DAY_IN_WEEK[new Date().getDay()];
+            var dd = new Date().getDate();
+            var dd_string = new Date().getDate();
+            var mm = MONTH_IN_YEAR[new Date().getMonth()];
+            var mm_string = new Date().getMonth();
+            var yyyy = new Date().getFullYear();
+            var hh = new Date().getHours();
+            var hh_string = new Date().getHours();
+            var min = new Date().getMinutes();
+            var min_string = new Date().getMinutes();
+
+            if (min < 10) {
+                min = '0' + min;
+            }
+            if (hh > 12) {
+                hh = hh - 12;
+                min += 'PM';
+            } else {
+                min += 'AM';
+            }
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
             var number_ = parseFloat(this.state.number);
             if (isNaN(this.state.number)) {
                 alert("Please enter a valid number");
@@ -27276,7 +27215,12 @@ var form = function (_React$Component) {
             var firebaseRef = Firebase.database().ref();
             var indonesiaRef = firebaseRef.child('Ex_Indonesia');
             indonesiaRef.update({
-                "value": number_
+                "value": number_,
+                'time': day + ", " + dd + " " + mm + " " + yyyy + "   " + hh + ":" + min
+            });
+            var philippineRef = firebaseRef.child('Ex_Philippine');
+            philippineRef.update({
+                'time': day + ", " + dd + " " + mm + " " + yyyy + "   " + hh + ":" + min
             });
             alert("Indonesia Exchange Rate updated to " + number_ + " successfully!");
         }
@@ -27365,6 +27309,9 @@ var input_label = {
     "color": "#E1B873"
 };
 
+var DAY_IN_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+var MONTH_IN_YEAR = ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 var form = function (_React$Component) {
     _inherits(form, _React$Component);
 
@@ -27401,6 +27348,24 @@ var form = function (_React$Component) {
         key: 'handleSubmit',
         value: function handleSubmit(event) {
             event.preventDefault();
+            var day = DAY_IN_WEEK[new Date().getDay()];
+            var dd = new Date().getDate();
+            var mm = MONTH_IN_YEAR[new Date().getMonth()];
+            var yyyy = new Date().getFullYear();
+            var hh = new Date().getHours();
+            var min = new Date().getMinutes();
+            if (min < 10) {
+                min = '0' + min;
+            }
+            if (hh > 12) {
+                hh = hh - 12;
+                min += 'PM';
+            } else {
+                min += 'AM';
+            }
+            if (dd < 10) {
+                dd = '0' + dd;
+            }
             var number_ = parseFloat(this.state.number);
             if (isNaN(this.state.number)) {
                 alert("Please enter a valid number");
@@ -27410,9 +27375,14 @@ var form = function (_React$Component) {
                 alert("Empty input field is not allowed");
             }
             var firebaseRef = Firebase.database().ref();
-            var indonesiaRef = firebaseRef.child('Ex_Philippine');
+            var philippineRef = firebaseRef.child('Ex_Philippine');
+            philippineRef.update({
+                "value": number_,
+                'time': day + ", " + dd + " " + mm + " " + yyyy + "   " + hh + ":" + min
+            });
+            var indonesiaRef = firebaseRef.child('Ex_Indonesia');
             indonesiaRef.update({
-                "value": number_
+                'time': day + ", " + dd + " " + mm + " " + yyyy + "   " + hh + ":" + min
             });
             alert("Philippine Exchange Rate updated to " + number_ + " successfully!");
         }
@@ -27993,8 +27963,6 @@ var React = __webpack_require__(0);
 var Firebase = __webpack_require__(18);
 
 var SCREEN_HEIGHT = 768;
-var DAY_IN_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-var MONTH_IN_YEAR = ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 var rate = {
     'width': '100%',
@@ -28008,14 +27976,9 @@ var Rates = React.createClass({
         return {
             width: null,
             height: null,
-            day: DAY_IN_WEEK[new Date().getDay()],
-            dd: new Date().getDate(),
-            mm: MONTH_IN_YEAR[new Date().getMonth()],
-            yyyy: new Date().getFullYear(),
-            hh: new Date().getHours(),
-            min: new Date().getMinutes(),
             indonesia: 0,
-            philippine: 0
+            philippine: 0,
+            lastUpdated: null
         };
     },
     componentWillMount: function componentWillMount() {
@@ -28029,25 +27992,32 @@ var Rates = React.createClass({
         }, 1000);
         var indonesiaRates = Firebase.database().ref().child('Ex_Indonesia');
         var philippineRates = Firebase.database().ref().child('Ex_Philippine');
-        indonesiaRates.on('child_changed', function (snapshot) {
-            this.setState({
-                indonesia: snapshot.val()
-            });
+
+        philippineRates.on('value', function (snapshot) {
+            if (snapshot.hasChild('time')) {
+                this.setState({
+                    philippine: snapshot.val().value,
+                    datetimeP: snapshot.val().datetimestring,
+                    lastUpdated: snapshot.val().time
+                });
+            } else {
+                this.setState({
+                    philippine: snapshot.val().value
+                });
+            }
         }.bind(this));
-        philippineRates.on('child_changed', function (snapshot) {
-            this.setState({
-                philippine: snapshot.val()
-            });
-        }.bind(this));
-        indonesiaRates.on('child_added', function (snapshot) {
-            this.setState({
-                indonesia: snapshot.val()
-            });
-        }.bind(this));
-        philippineRates.on('child_added', function (snapshot) {
-            this.setState({
-                philippine: snapshot.val()
-            });
+        indonesiaRates.on('value', function (snapshot) {
+            if (snapshot.hasChild('time')) {
+                this.setState({
+                    indonesia: snapshot.val().value,
+                    datetimeI: snapshot.val().datetimestring,
+                    lastUpdated: snapshot.val().time
+                });
+            } else {
+                this.setState({
+                    indonesia: snapshot.val().value
+                });
+            }
         }.bind(this));
     },
     componentWillUnmount: function componentWillUnmount() {
@@ -28065,18 +28035,7 @@ var Rates = React.createClass({
         window.addEventListener("resize", this.updateDimensions);
     },
     render: function render() {
-        var hh = this.state.hh;
-        var min = this.state.min;
-        var dd = this.state.dd;
-        if (hh > 12) {
-            hh = hh - 12;
-            min += 'PM';
-        } else {
-            min += 'AM';
-        }
-        if (dd < 10) {
-            dd = '0' + dd;
-        }
+
         return React.createElement(
             'div',
             { style: rate },
@@ -28099,7 +28058,7 @@ var Rates = React.createClass({
                     React.createElement(
                         'h3',
                         { style: { color: 'white', textAlign: 'left', marginLeft: '5%' } },
-                        this.state.day + ", " + dd + " " + this.state.mm + " " + this.state.yyyy + "   " + hh + ":" + min
+                        this.state.lastUpdated
                     )
                 )
             ),
